@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, related_name='account', verbose_name=u'用户')
+    user = models.OneToOneField(User, related_name='profile', verbose_name=u'用户')
     nickname = models.CharField(max_length=100, verbose_name=u'昵称')
     birthday = models.DateField(verbose_name=u'出生日期')
     location = models.CharField(max_length=100, verbose_name=u'所在地')
