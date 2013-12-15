@@ -14,4 +14,5 @@ class Mark(models.Model):
     marked_at = models.DateTimeField(verbose_name=u'标记时间')
 
     class Meta:
+        app_label = 'zhidewen'
         db_table = 'zhidewen_marks'

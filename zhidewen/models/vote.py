@@ -15,5 +15,6 @@ class Vote(models.Model):
     voted_at = models.DateTimeField(auto_now=True, verbose_name=u'投票时间')
 
     class Meta:
+        app_label = 'zhidewen'
         db_table = 'zhidewen_votes'
         unique_together = (('content_type', 'object_pk', 'voted_by'), )

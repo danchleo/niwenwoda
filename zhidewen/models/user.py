@@ -15,4 +15,5 @@ class Profile(models.Model):
     email_is_verified = models.BooleanField(verbose_name=u'邮箱地址是否已验证')
 
     class Meta:
+        app_label = 'zhidewen'
         db_table = 'auth_user_profile'

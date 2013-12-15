@@ -20,4 +20,5 @@ class Answer(models.Model):
     deleted = models.BooleanField(default=False, verbose_name=u'是否被删除')
 
     class Meta:
+        app_label = 'zhidewen'
         db_table = 'zhidewen_answers'
