@@ -1,14 +1,39 @@
 #-*- encoding: utf-8 -*-
 
 from django.db import models
+from django.db.models.query import QuerySet
 from django.contrib.auth.models import User
 from zhidewen.models.tag import Tag
 
 
+class QuestionQuerySet(QuerySet):
+
+    def fresh(self):
+        return self.order_by('-last_refreshed_at')
+
+    def hot(self):
+        return self.order_by('-ranking_weight')
+
+    def unanswered(self):
+        return self.filter(answer_count=0, closed=False).order_by('-created_at')
+
+
 class QuestionManager(models.Manager):
 
-    def create_question(self, user, title, content):
-        return self.create(title=title, content=content, created_by=user, last_updated_by=user)
+    def get_queryset(self):
+        return QuestionQuerySet(self.model, using=self._db)
+
+    def create_question(self, user, title, content, **kwargs):
+        return self.create(title=title, content=content, created_by=user, last_updated_by=user, **kwargs)
+
+    def fresh(self):
+        return self.get_queryset().fresh()
+
+    def hot(self):
+        return self.get_queryset().hot()
+
+    def unanswered(self):
+        return self.get_queryset().unanswered()
 
 
 class Question(models.Model):
@@ -50,3 +75,6 @@ class Question(models.Model):
                     self.down_count,
                     self.view_count,
                     self.comment_count])
+
+    def __repr__(self):
+        return '<Question: %s>' % self.title[:10]
