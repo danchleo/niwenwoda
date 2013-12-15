@@ -36,8 +36,15 @@ class QuestionManager(models.Manager):
         return self.get_queryset().unanswered()
 
 
+class ExistedManager(QuestionManager):
+
+    def get_queryset(self):
+        return super(ExistedManager, self).get_queryset().filter(deleted=False)
+
+
 class Question(models.Model):
     objects = QuestionManager()
+    existed = ExistedManager()
 
     title = models.CharField(max_length=140, verbose_name=u'标题')
     content = models.TextField(verbose_name=u'补充说明', null=True, blank=True)
@@ -67,6 +74,10 @@ class Question(models.Model):
     def save(self, *args, **kwargs):
         self.ranking_weight = self.count_ranking()
         return super(Question, self).save(*args, **kwargs)
+
+    def soft_delete(self):
+        self.deleted = True
+        return self.save()
 
     def count_ranking(self):
         return sum([self.answer_count*5,

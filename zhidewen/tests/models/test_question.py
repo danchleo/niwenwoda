@@ -4,6 +4,7 @@ from django.test import TestCase
 from zhidewen.models import Question, User
 import datetime
 
+
 class BaseQuestionTest(TestCase):
 
     def setUp(self):
@@ -54,6 +55,11 @@ class TestListQuestion(BaseQuestionTest):
 
         self.q3.closed = True
         self.q3.save()
-
         self.assertEqual(list(Question.objects.unanswered()), [self.q2])
+
+    def test_existed_manager_and_soft_delete(self):
+        self.assertEqual(list(Question.existed.fresh()), [self.q2, self.q3, self.q1])
+        self.q2.soft_delete()
+        self.assertEqual(list(Question.existed.fresh()), [self.q3, self.q1])
+        self.assertEqual(list(Question.objects.fresh()), [self.q2, self.q3, self.q1])
 
