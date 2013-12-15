@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models.query import QuerySet
 from django.contrib.auth.models import User
 from zhidewen.models.tag import Tag
+from django.utils import timezone
 
 
 class QuestionQuerySet(QuerySet):
@@ -61,8 +62,8 @@ class Question(models.Model):
     created_by = models.ForeignKey(User, related_name='questions', verbose_name=u'创建人')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=u'创建时间')
     last_updated_by = models.ForeignKey(User, verbose_name=u'最后更新人')
-    last_updated_at = models.DateTimeField(auto_now=True, verbose_name=u'最后更新时间')
-    last_refreshed_at = models.DateTimeField(auto_now=True, verbose_name=u'最后活跃时间')
+    last_updated_at = models.DateTimeField(auto_now_add=True, verbose_name=u'最后更新时间')
+    last_refreshed_at = models.DateTimeField(auto_now_add=True, verbose_name=u'最后活跃时间')
 
     closed = models.BooleanField(default=False, verbose_name=u'是否被关闭')
     deleted = models.BooleanField(default=False, verbose_name=u'是否被删除')
@@ -86,6 +87,13 @@ class Question(models.Model):
                     self.down_count,
                     self.view_count,
                     self.comment_count])
+
+    def update(self, user, title, content):
+        self.title = title
+        self.content = content
+        self.last_updated_by = user
+        self.last_updated_at = timezone.now()
+        return self.save()
 
     def __repr__(self):
         return '<Question: %s>' % self.title[:10]

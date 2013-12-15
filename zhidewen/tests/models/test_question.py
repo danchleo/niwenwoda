@@ -2,7 +2,7 @@
 
 from django.test import TestCase
 from zhidewen.models import Question, User
-import datetime
+from django.utils import timezone
 
 
 class BaseQuestionTest(TestCase):
@@ -32,6 +32,21 @@ class TestQuestion(BaseQuestionTest):
         question.save()
         self.assertEqual(question.ranking_weight, 140)
 
+    def test_updated_at_change_only_update(self):
+        question = self.create('Foo', 'Bar')
+        last_updated_at = question.last_updated_at
+        edit_user = User.objects.create_user('admin', 'admin@zhidewen.com', 'admin')
+        question.update(edit_user, 'foo', 'bar')
+
+        new_question = Question.objects.get(pk=question.id)
+        self.assertTrue(new_question.last_updated_at > last_updated_at)
+        self.assertEqual(edit_user, new_question.last_updated_by)
+
+        last_updated_at = new_question.last_updated_at
+        new_question.title = 'FOO'
+        new_question.save()
+        self.assertEqual(new_question.last_updated_at, last_updated_at)
+
 
 class TestListQuestion(BaseQuestionTest):
 
@@ -41,7 +56,7 @@ class TestListQuestion(BaseQuestionTest):
         self.q2 = self.create('Q2', 'Q2', view_count=100)
         self.q3 = self.create('Q3', 'Q3')
 
-        self.q2.last_refreshed_at = datetime.datetime.now()
+        self.q2.last_refreshed_at = timezone.now()
         self.q2.save()
 
     def test_fresh_list(self):
