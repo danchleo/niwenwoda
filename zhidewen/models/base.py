@@ -3,6 +3,7 @@
 from django.db import models
 from django.utils import timezone
 from django.db.models import query
+from django.contrib.auth.models import User
 
 
 class QuerySet(query.QuerySet):
@@ -31,3 +32,34 @@ class QuerySet(query.QuerySet):
 
         return Manager
 
+
+class ContentModel(models.Model):
+    up_count = models.PositiveIntegerField(default=0, verbose_name=u'赞成数')
+    down_count = models.PositiveIntegerField(default=0, verbose_name=u'反对数')
+    comment_count = models.PositiveIntegerField(default=0, verbose_name=u'评论数')
+    mark_count = models.PositiveIntegerField(default=0, verbose_name=u'标记数')
+    ranking_weight = models.IntegerField(default=0, verbose_name=u'权重')
+
+    created_by = models.ForeignKey(User, related_name='%(class)ss', verbose_name=u'创建人')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=u'创建时间')
+    last_updated_by = models.ForeignKey(User, verbose_name=u'最后更新人')
+    last_updated_at = models.DateTimeField(auto_now_add=True, verbose_name=u'最后更新时间')
+
+    deleted = models.BooleanField(default=False, verbose_name=u'是否被删除')
+
+    class Meta:
+        abstract = True
+
+    def __repr__(self):
+        return '<%s: %s>' % (self.__class__.__name__, self.pk)
+
+    def save(self, *args, **kwargs):
+        self.ranking_weight = self.count_ranking()
+        return super(ContentModel, self).save(*args, **kwargs)
+
+    def soft_delete(self):
+        self.deleted = True
+        return self.save()
+
+    def count_ranking(self):
+        return 0
