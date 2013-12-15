@@ -35,9 +35,3 @@ class Answer(base.ContentModel):
 
     def count_ranking(self):
         return self.up_count - self.down_count
-
-    def update(self, user, content):
-        self.content = content
-        self.last_updated_by = user
-        self.last_updated_at = timezone.now()
-        return self.save()

@@ -43,7 +43,7 @@ class TestAnswer(BaseAnswerTest):
         answer = self.answer_question('Content')
         edit_user = self.create_user('admin')
         last_updated_at = answer.last_updated_at
-        answer.update(edit_user, 'Content')
+        answer.update(edit_user, content='Content')
 
         new_answer = Answer.objects.get(pk=answer.id)
         self.assertTrue(new_answer.last_updated_at > last_updated_at)

@@ -36,7 +36,7 @@ class TestQuestion(BaseQuestionTest):
         question = self.create('Foo', 'Bar')
         last_updated_at = question.last_updated_at
         edit_user = User.objects.create_user('admin', 'admin@zhidewen.com', 'admin')
-        question.update(edit_user, 'foo', 'bar')
+        question.update(edit_user, title='foo', content='bar')
 
         new_question = Question.objects.get(pk=question.id)
         self.assertTrue(new_question.last_updated_at > last_updated_at)

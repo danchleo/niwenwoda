@@ -39,7 +39,6 @@ class Question(base.ContentModel):
     last_refreshed_at = models.DateTimeField(auto_now_add=True, verbose_name=u'最后活跃时间')
     closed = models.BooleanField(default=False, verbose_name=u'是否被关闭')
 
-
     class Meta:
         app_label = 'zhidewen'
         db_table = 'zhidewen_questions'
@@ -51,10 +50,3 @@ class Question(base.ContentModel):
                     self.down_count,
                     self.view_count,
                     self.comment_count])
-
-    def update(self, user, title, content):
-        self.title = title
-        self.content = content
-        self.last_updated_by = user
-        self.last_updated_at = timezone.now()
-        return self.save()

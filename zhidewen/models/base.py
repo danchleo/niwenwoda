@@ -57,6 +57,13 @@ class ContentModel(models.Model):
         self.ranking_weight = self.count_ranking()
         return super(ContentModel, self).save(*args, **kwargs)
 
+    def update(self, user, **kwargs):
+        for attr, value in kwargs.items():
+            setattr(self, attr, value)
+        self.last_updated_by = user
+        self.last_updated_at = timezone.now()
+        return self.save()
+
     def soft_delete(self):
         self.deleted = True
         return self.save()
