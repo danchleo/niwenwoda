@@ -1,29 +1,16 @@
 #-*- encoding: utf-8 -*-
 
 from django.test import TestCase
-from zhidewen.models import Question, User, Answer
+from zhidewen.tests.models.base import ModelTestCase
+from zhidewen.models import Answer
 from django.utils import timezone
 
 
-class BaseAnswerTest(TestCase):
+class TestAnswer(ModelTestCase):
 
     def setUp(self):
         self.user = self.create_user('test')
         self.q = self.create_question('Foo', 'Bar')
-
-    def create_user(self, username, *args):
-        if not args:
-            args = ('%s@zhidewen.com' % username, username)
-        return User.objects.create_user(username, *args)
-
-    def create_question(self, *args, **kwargs):
-        return Question.objects.create_question(self.user, *args, **kwargs)
-
-    def answer_question(self, *args, **kwargs):
-        return Answer.objects.answer_question(self.user, self.q, *args, **kwargs)
-
-
-class TestAnswer(BaseAnswerTest):
 
     def test_answer_question(self):
         answer = Answer.objects.answer_question(self.user, self.q, 'Content')
@@ -55,10 +42,12 @@ class TestAnswer(BaseAnswerTest):
         self.assertEqual(new_answer.last_updated_at, last_updated_at)
 
 
-class ListAnswerTest(BaseAnswerTest):
+class ListAnswerTest(ModelTestCase):
 
     def setUp(self):
-        super(ListAnswerTest, self).setUp()
+        self.user = self.create_user('test')
+        self.q = self.create_question('Foo', 'Bar')
+
         self.a1 = self.answer_question('A1', down_count=2)
         self.a2 = self.answer_question('A2', up_count=5)
         self.a3 = self.answer_question('A3')
