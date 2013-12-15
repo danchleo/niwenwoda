@@ -1,13 +1,13 @@
 #-*- encoding: utf-8 -*-
 
 from django.db import models
-from django.db.models.query import QuerySet
 from django.contrib.auth.models import User
+from zhidewen.models import base
 from zhidewen.models.tag import Tag
 from django.utils import timezone
 
 
-class QuestionQuerySet(QuerySet):
+class QuestionQuerySet(base.QuerySet):
 
     def fresh(self):
         return self.order_by('-last_refreshed_at')
@@ -19,33 +19,15 @@ class QuestionQuerySet(QuerySet):
         return self.filter(answer_count=0, closed=False).order_by('-created_at')
 
 
-class QuestionManager(models.Manager):
-
-    def get_queryset(self):
-        return QuestionQuerySet(self.model, using=self._db)
+class QuestionManager(QuestionQuerySet.as_manager()):
 
     def create_question(self, user, title, content, **kwargs):
         return self.create(title=title, content=content, created_by=user, last_updated_by=user, **kwargs)
 
-    def fresh(self):
-        return self.get_queryset().fresh()
-
-    def hot(self):
-        return self.get_queryset().hot()
-
-    def unanswered(self):
-        return self.get_queryset().unanswered()
-
-
-class ExistedManager(QuestionManager):
-
-    def get_queryset(self):
-        return super(ExistedManager, self).get_queryset().filter(deleted=False)
-
 
 class Question(models.Model):
     objects = QuestionManager()
-    existed = ExistedManager()
+    existed = QuestionManager.existed_manager()
 
     title = models.CharField(max_length=140, verbose_name=u'标题')
     content = models.TextField(verbose_name=u'补充说明', null=True, blank=True)

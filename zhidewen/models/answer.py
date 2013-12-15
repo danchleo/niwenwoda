@@ -1,13 +1,13 @@
 #-*- encoding: utf-8 -*-
 
 from django.db import models
-from django.db.models.query import QuerySet
 from django.contrib.auth.models import User
+from zhidewen.models import base
 from zhidewen.models.question import Question
 from django.utils import timezone
 
 
-class AnswerQuerySet(QuerySet):
+class AnswerQuerySet(base.QuerySet):
 
     def best(self):
         return self.order_by('-ranking_weight')
@@ -15,37 +15,16 @@ class AnswerQuerySet(QuerySet):
     def oldest(self):
         return self.order_by('created_at')
 
-    def existed(self):
-        return self.filter(deleted=False)
 
-
-class AnswerManager(models.Manager):
-
-    def get_queryset(self):
-        return AnswerQuerySet(self.model, using=self._db)
+class AnswerManager(AnswerQuerySet.as_manager()):
 
     def answer_question(self, user, question, content, **kwargs):
         return self.create(content=content, question=question, created_by=user, last_updated_by=user, **kwargs)
 
-    def best(self):
-        return self.get_queryset().best()
-
-    def oldest(self):
-        return self.get_queryset().oldest()
-
-    def existed(self):
-        return self.get_queryset().existed()
-
-
-class ExistedManager(AnswerManager):
-
-    def get_queryset(self):
-        return super(ExistedManager, self).get_queryset().existed()
-
 
 class Answer(models.Model):
     objects = AnswerManager()
-    exsited = ExistedManager()
+    exsited = AnswerManager.existed_manager()
 
     question = models.ForeignKey(Question, related_name='answers', verbose_name=u'问题')
     content = models.TextField(verbose_name=u'答案')
