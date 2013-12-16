@@ -2,19 +2,14 @@
 
 from django.test import TestCase
 from zhidewen.models import Question, User
-import datetime
+from django.utils import timezone
+from zhidewen.tests.models.base import ModelTestCase
 
 
-class BaseQuestionTest(TestCase):
+class TestQuestion(ModelTestCase):
 
     def setUp(self):
-        self.user = User.objects.create_user('test', 'test@zhidewen.com', 'test')
-
-    def create(self, *args, **kwargs):
-        return Question.objects.create_question(self.user, *args, **kwargs)
-
-
-class TestQuestion(BaseQuestionTest):
+        self.user = self.create_user('test')
 
     def test_create_question(self):
         question = Question.objects.create_question(self.user, 'Foo', 'Bar')
@@ -22,8 +17,8 @@ class TestQuestion(BaseQuestionTest):
         self.assertEqual(Question.objects.count(), 1)
         self.assertEqual(list(self.user.questions.all()), [question])
 
-    def test_count_ranking_when_create_or_update_question(self):
-        question = self.create('Foo', 'Bar', view_count=100, answer_count=5)
+    def test_ranking_weight(self):
+        question = self.create_question('Foo', 'Bar', view_count=100, answer_count=5)
 
         self.assertEqual(question.ranking_weight, 125)
 
@@ -32,16 +27,32 @@ class TestQuestion(BaseQuestionTest):
         question.save()
         self.assertEqual(question.ranking_weight, 140)
 
+    def test_update(self):
+        question = self.create_question('Foo', 'Bar')
+        last_updated_at = question.last_updated_at
+        edit_user = User.objects.create_user('admin', 'admin@zhidewen.com', 'admin')
+        question.update(edit_user, title='foo', content='bar')
 
-class TestListQuestion(BaseQuestionTest):
+        new_question = Question.objects.get(pk=question.id)
+        self.assertTrue(new_question.last_updated_at > last_updated_at)
+        self.assertEqual(edit_user, new_question.last_updated_by)
+
+        last_updated_at = new_question.last_updated_at
+        new_question.title = 'FOO'
+        new_question.save()
+        self.assertEqual(new_question.last_updated_at, last_updated_at)
+
+
+class TestListQuestion(ModelTestCase):
 
     def setUp(self):
-        super(TestListQuestion, self).setUp()
-        self.q1 = self.create('Q1', 'Q1', answer_count=1)
-        self.q2 = self.create('Q2', 'Q2', view_count=100)
-        self.q3 = self.create('Q3', 'Q3')
+        self.user = self.create_user('test')
 
-        self.q2.last_refreshed_at = datetime.datetime.now()
+        self.q1 = self.create_question('Q1', 'Q1', answer_count=1)
+        self.q2 = self.create_question('Q2', 'Q2', view_count=100)
+        self.q3 = self.create_question('Q3', 'Q3')
+
+        self.q2.last_refreshed_at = timezone.now()
         self.q2.save()
 
     def test_fresh_list(self):
