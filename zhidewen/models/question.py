@@ -15,8 +15,14 @@ class QuestionQuerySet(base.QuerySet):
     def hot(self):
         return self.order_by('-ranking_weight')
 
+    def recent(self):
+        return self.order_by('-created_at')
+
     def unanswered(self):
-        return self.filter(answer_count=0, closed=False).order_by('-created_at')
+        return self.filter(answer_count=0, closed=False)
+
+    def answered(self):
+        return self.filter(answer_count__gt=0)
 
 
 class QuestionManager(QuestionQuerySet.as_manager()):

@@ -62,11 +62,14 @@ class TestListQuestion(ModelTestCase):
         self.assertEqual(list(Question.objects.hot()), [self.q2, self.q1, self.q3])
 
     def test_unanswered_list(self):
-        self.assertEqual(list(Question.objects.unanswered()), [self.q3, self.q2])
+        self.assertEqual(list(Question.objects.unanswered().recent()), [self.q3, self.q2])
 
         self.q3.closed = True
         self.q3.save()
         self.assertEqual(list(Question.objects.unanswered()), [self.q2])
+
+    def test_answered_count(self):
+        self.assertEqual(1, Question.objects.answered().count())
 
     def test_existed_manager_and_soft_delete(self):
         self.assertEqual(list(Question.existed.fresh()), [self.q2, self.q3, self.q1])
