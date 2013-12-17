@@ -1,6 +1,7 @@
 #-*- encoding: utf-8 -*-
 
 from django.db import models
+from django.utils import timezone
 from zhidewen.models import base
 from zhidewen.models.question import Question
 from zhidewen.models import signals
@@ -38,8 +39,9 @@ class Answer(base.ContentModel):
         return self.up_count - self.down_count
 
 
-def up_answer_count(instance, **kwargs):
+def up_answer_count_and_refresh_question(instance, **kwargs):
     instance.question.answer_count += 1
+    instance.question.last_refreshed_at = timezone.now()
     instance.question.save()
 
 def down_answer_count(instance, **kwargs):
@@ -48,7 +50,7 @@ def down_answer_count(instance, **kwargs):
 
 
 signals.delete_content.connect(down_answer_count, sender=Answer)
-signals.create_content.connect(up_answer_count, sender=Answer)
+signals.create_content.connect(up_answer_count_and_refresh_question, sender=Answer)
 
 
 

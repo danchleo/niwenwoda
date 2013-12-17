@@ -91,3 +91,13 @@ class TestAnswerCount(ModelTestCase):
 
         self.answer.delete()
         self.assertEqual(0, self.q.answer_count)
+
+
+class TestRefreshQuestion(ModelTestCase):
+
+    def test(self):
+        self.user = self.create_user('test')
+        self.q = self.create_question('Foo', 'Bar')
+        last_refreshed_at = self.q.last_refreshed_at
+        self.answer_question('A')
+        self.assertTrue(self.q.last_refreshed_at > last_refreshed_at)

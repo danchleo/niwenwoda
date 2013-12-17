@@ -42,7 +42,7 @@ class VoteManager(models.Manager):
 class Vote(models.Model):
     objects = VoteManager()
 
-    content_type = models.ForeignKey(ContentType, verbose_name=u'', related_name='')
+    content_type = models.ForeignKey(ContentType)
     object_pk = models.TextField()
     content_object = generic.GenericForeignKey("content_type", "object_pk")
     value = models.IntegerField(verbose_name=u'值')
