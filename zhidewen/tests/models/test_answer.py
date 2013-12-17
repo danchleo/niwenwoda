@@ -42,7 +42,7 @@ class TestAnswer(ModelTestCase):
         self.assertEqual(new_answer.last_updated_at, last_updated_at)
 
 
-class ListAnswerTest(ModelTestCase):
+class TestListAnswer(ModelTestCase):
 
     def setUp(self):
         self.user = self.create_user('test')
@@ -64,3 +64,30 @@ class ListAnswerTest(ModelTestCase):
         self.assertEqual(list(self.q.answers.existed().oldest()), [self.a1, self.a3])
         self.assertEqual(list(self.q.answers.oldest()), [self.a1, self.a2, self.a3])
 
+
+class TestAnswerCount(ModelTestCase):
+
+    def setUp(self):
+        self.user = self.create_user('test')
+        self.q = self.create_question('Foo', 'Bar')
+        self.answer = self.answer_question('A')
+        self.assertEqual(1, self.q.answer_count)
+
+    def test_answer_count(self):
+        self.answer.soft_delete()
+        self.assertEqual(0, self.q.answer_count)
+
+    def test_answer_count_hard_delete(self):
+        self.answer.delete()
+        self.assertEqual(0, self.q.answer_count)
+
+    def xtest_answer_count_query_set_delete(self):
+        self.q.answers.delete()
+        self.assertEqual(0, self.q.answer_count)
+
+    def test_answer_count_soft_and_hard_delete(self):
+        self.answer.soft_delete()
+        self.assertEqual(0, self.q.answer_count)
+
+        self.answer.delete()
+        self.assertEqual(0, self.q.answer_count)

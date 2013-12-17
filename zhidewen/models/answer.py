@@ -1,10 +1,9 @@
 #-*- encoding: utf-8 -*-
 
 from django.db import models
-from django.contrib.auth.models import User
 from zhidewen.models import base
 from zhidewen.models.question import Question
-from django.utils import timezone
+from zhidewen.models import signals
 
 
 class AnswerQuerySet(base.QuerySet):
@@ -19,7 +18,9 @@ class AnswerQuerySet(base.QuerySet):
 class AnswerManager(AnswerQuerySet.as_manager()):
 
     def answer_question(self, user, question, content, **kwargs):
-        return self.create(content=content, question=question, created_by=user, last_updated_by=user, **kwargs)
+        answer = self.create(content=content, question=question, created_by=user, last_updated_by=user, **kwargs)
+        signals.create_content.send(answer.__class__, instance=answer)
+        return answer
 
 
 class Answer(base.ContentModel):
@@ -35,3 +36,19 @@ class Answer(base.ContentModel):
 
     def count_ranking(self):
         return self.up_count - self.down_count
+
+
+def up_answer_count(instance, **kwargs):
+    instance.question.answer_count += 1
+    instance.question.save()
+
+def down_answer_count(instance, **kwargs):
+    instance.question.answer_count -= 1
+    instance.question.save()
+
+
+signals.delete_content.connect(down_answer_count, sender=Answer)
+signals.create_content.connect(up_answer_count, sender=Answer)
+
+
+

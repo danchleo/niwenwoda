@@ -4,6 +4,7 @@ from django.db import models
 from django.utils import timezone
 from django.db.models import query
 from django.contrib.auth.models import User
+from zhidewen.models import signals
 
 
 class QuerySet(query.QuerySet):
@@ -65,8 +66,14 @@ class ContentModel(models.Model):
         return self.save()
 
     def soft_delete(self):
-        self.deleted = True
-        return self.save()
+        if not self.deleted:
+            self.deleted = True
+            self.save()
+            signals.delete_content.send(self.__class__, instance=self)
+
+    def delete(self, using=None):
+        self.soft_delete()
+        return super(ContentModel, self).delete(using=using)
 
     def count_ranking(self):
         return 0
