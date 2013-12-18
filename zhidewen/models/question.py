@@ -32,11 +32,7 @@ class QuestionManager(QuestionQuerySet.as_manager()):
         question.save()
         if tag_names:
             for tag_name in tag_names:
-                try:
-                    tag = Tag.objects.get(name=tag_name)
-                except Tag.DoesNotExist:
-                    tag = Tag.objects.create(created_by=user, name=tag_name)
-                question.tags.add(tag)
+                question.add_tag(user, tag_name)
         return question
 
 
@@ -65,3 +61,14 @@ class Question(base.ContentModel):
                     self.down_count,
                     self.view_count,
                     self.comment_count])
+
+    def add_tag(self, user, tag_name):
+        tag = Tag.objects.get_or_create_by_name(tag_name, user)
+        self.tags.add(tag)
+        tag.used_count += 1
+        tag.save()
+
+    def remove_tag(self, tag):
+        self.tags.remove(tag)
+        tag.used_count -= 1
+        tag.save()

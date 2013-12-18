@@ -95,3 +95,19 @@ class TestQuestionTag(ModelTestCase):
         self.assertEqual([t.name for t in tags], ['foo', 'bar'])
         self.assertEqual(Tag.objects.count(), 2)
 
+    def test_add_and_remote_tag(self):
+        q = self.create_question('Foo', 'Bar')
+        q.add_tag(self.user, 'foo')
+
+        tag = Tag.objects.first()
+
+        self.assertEqual(Question.objects.get(pk=q.id).tags.count(), 1)
+        self.assertEqual(Tag.objects.count(), 1)
+        self.assertEqual(tag.used_count, 1)
+        self.assertEqual(tag.name, 'foo')
+
+        q.remove_tag(tag)
+        self.assertEqual(Tag.objects.count(), 1)
+        self.assertEqual(tag.used_count, 0)
+
+        self.assertEqual(Question.objects.get(pk=q.id).tags.count(), 0)

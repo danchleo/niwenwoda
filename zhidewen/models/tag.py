@@ -4,7 +4,18 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class TagManager(models.Manager):
+
+    def get_or_create_by_name(self, name, user):
+        try:
+            return self.get(name=name)
+        except self.model.DoesNotExist:
+            return self.create(created_by=user, name=name)
+
+
 class Tag(models.Model):
+    objects = TagManager()
+
     name = models.CharField(max_length=50, unique=True, verbose_name=u'名称')
     icon = models.URLField(blank=True, verbose_name=u'图标')
     description = models.TextField(blank=True, verbose_name=u'描述')
