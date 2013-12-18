@@ -27,8 +27,17 @@ class QuestionQuerySet(base.QuerySet):
 
 class QuestionManager(QuestionQuerySet.as_manager()):
 
-    def create_question(self, user, title, content, **kwargs):
-        return self.create(title=title, content=content, created_by=user, last_updated_by=user, **kwargs)
+    def create_question(self, user, title, content, tag_names=None, **kwargs):
+        question = self.model(title=title, content=content, created_by=user, last_updated_by=user, **kwargs)
+        question.save()
+        if tag_names:
+            for tag_name in tag_names:
+                try:
+                    tag = Tag.objects.get(name=tag_name)
+                except Tag.DoesNotExist:
+                    tag = Tag.objects.create(created_by=user, name=tag_name)
+                question.tags.add(tag)
+        return question
 
 
 class Question(base.ContentModel):

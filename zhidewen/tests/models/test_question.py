@@ -1,7 +1,7 @@
 #-*- encoding: utf-8 -*-
 
 from django.test import TestCase
-from zhidewen.models import Question, User
+from zhidewen.models import Question, User, Tag
 from django.utils import timezone
 from zhidewen.tests.models.base import ModelTestCase
 
@@ -76,4 +76,22 @@ class TestListQuestion(ModelTestCase):
         self.q2.soft_delete()
         self.assertEqual(list(Question.existed.fresh()), [self.q3, self.q1])
         self.assertEqual(list(Question.objects.fresh()), [self.q2, self.q3, self.q1])
+
+
+class TestQuestionTag(ModelTestCase):
+
+    def setUp(self):
+        self.user = self.create_user('test')
+
+    def test_create_question_with_tag_names(self):
+        question = Question.objects.create_question(self.user, 'Foo', 'Foo', tag_names=['foo', 'bar'])
+        tags = Question.objects.get(pk=question.id).tags.all()
+        self.assertEqual([t.name for t in tags], ['foo', 'bar'])
+
+    def test_create_question_with_existed_tag_name(self):
+        Tag.objects.create(created_by=self.user, name='foo')
+        question = Question.objects.create_question(self.user, 'Foo', 'Foo', tag_names=['foo', 'bar'])
+        tags = Question.objects.get(pk=question.id).tags.all()
+        self.assertEqual([t.name for t in tags], ['foo', 'bar'])
+        self.assertEqual(Tag.objects.count(), 2)
 
