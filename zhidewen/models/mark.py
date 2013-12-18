@@ -4,6 +4,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
+from zhidewen.models.question import Question
+from zhidewen.models.answer import Answer
 
 
 class MarkManager(models.Manager):
@@ -20,6 +22,15 @@ class MarkManager(models.Manager):
 
         return mark
 
+    def question_marks(self, user):
+        return self._type_marks(user, Question)
+
+    def answer_marks(self, user):
+        return self._type_marks(user, Answer)
+
+    def _type_marks(self, user, model):
+        content_type = ContentType.objects.get_for_model(model)
+        return content_type.marks.filter(marked_by=user)
 
 class Mark(models.Model):
     objects = MarkManager()

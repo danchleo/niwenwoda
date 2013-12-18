@@ -23,3 +23,15 @@ class TestMark(ModelTestCase):
         mark.delete()
         self.assertEqual(self.reload(self.q).mark_count, 0)
 
+    def test_list_mark_question(self):
+        q1 = self.create_question(self.user, '1', '1')
+        q2 = self.create_question(self.user, '2', '2')
+
+        Mark.objects.mark(self.user, q1)
+        Mark.objects.mark(self.user, q2)
+
+        marks = Mark.objects.question_marks(self.user)
+        self.assertEqual([mark.content_object for mark in marks], [q1, q2])
+
+
+
