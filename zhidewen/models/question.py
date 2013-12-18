@@ -42,7 +42,7 @@ class Question(base.ContentModel):
 
     title = models.CharField(max_length=140, verbose_name=u'标题')
     content = models.TextField(verbose_name=u'补充说明', null=True, blank=True)
-    tags = models.ManyToManyField(Tag, verbose_name=u'标签')
+    tags = models.ManyToManyField(Tag, related_name='questions', verbose_name=u'标签')
 
     view_count = models.PositiveIntegerField(default=0, verbose_name=u'浏览数')
     answer_count = models.PositiveIntegerField(default=0, verbose_name=u'回答数')

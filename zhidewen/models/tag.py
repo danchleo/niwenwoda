@@ -2,9 +2,16 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from zhidewen.models import base
 
 
-class TagManager(models.Manager):
+class TagQuerySet(base.QuerySet):
+
+    def most_used(self):
+        return self.order_by('-used_count')
+
+
+class TagManager(TagQuerySet.as_manager()):
 
     def get_or_create_by_name(self, name, user):
         try:
