@@ -15,14 +15,25 @@ class QuestionQuerySet(base.QuerySet):
     def hot(self):
         return self.order_by('-ranking_weight')
 
+    def recent(self):
+        return self.order_by('-created_at')
+
     def unanswered(self):
-        return self.filter(answer_count=0, closed=False).order_by('-created_at')
+        return self.filter(answer_count=0, closed=False)
+
+    def answered(self):
+        return self.filter(answer_count__gt=0)
 
 
 class QuestionManager(QuestionQuerySet.as_manager()):
 
-    def create_question(self, user, title, content, **kwargs):
-        return self.create(title=title, content=content, created_by=user, last_updated_by=user, **kwargs)
+    def create_question(self, user, title, content, tag_names=None, **kwargs):
+        question = self.model(title=title, content=content, created_by=user, last_updated_by=user, **kwargs)
+        question.save()
+        if tag_names:
+            for tag_name in tag_names:
+                question.add_tag(user, tag_name)
+        return question
 
 
 class Question(base.ContentModel):
@@ -31,7 +42,7 @@ class Question(base.ContentModel):
 
     title = models.CharField(max_length=140, verbose_name=u'标题')
     content = models.TextField(verbose_name=u'补充说明', null=True, blank=True)
-    tags = models.ManyToManyField(Tag, verbose_name=u'标签')
+    tags = models.ManyToManyField(Tag, related_name='questions', verbose_name=u'标签')
 
     view_count = models.PositiveIntegerField(default=0, verbose_name=u'浏览数')
     answer_count = models.PositiveIntegerField(default=0, verbose_name=u'回答数')
@@ -50,3 +61,14 @@ class Question(base.ContentModel):
                     self.down_count,
                     self.view_count,
                     self.comment_count])
+
+    def add_tag(self, user, tag_name):
+        tag = Tag.objects.get_or_create_by_name(tag_name, user)
+        self.tags.add(tag)
+        tag.used_count += 1
+        tag.save()
+
+    def remove_tag(self, tag):
+        self.tags.remove(tag)
+        tag.used_count -= 1
+        tag.save()
