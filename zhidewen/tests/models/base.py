@@ -16,3 +16,6 @@ class ModelTestCase(TestCase):
 
     def answer_question(self, *args, **kwargs):
         return Answer.objects.answer_question(self.user, self.q, *args, **kwargs)
+
+    def reload(self, obj):
+        return obj.__class__._base_manager.get(pk=obj.pk)

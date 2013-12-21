@@ -3,3 +3,4 @@
 from zhidewen.tests.models.test_question import *
 from zhidewen.tests.models.test_answer import *
 from zhidewen.tests.models.test_vote import *
+from zhidewen.tests.models.test_mark import *
