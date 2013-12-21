@@ -27,7 +27,7 @@ class QuestionQuerySet(base.QuerySet):
 
 class QuestionManager(QuestionQuerySet.as_manager()):
 
-    def create_question(self, user, title, content, tag_names=None, **kwargs):
+    def create(self, user, title, content, tag_names=None, **kwargs):
         question = self.model(title=title, content=content, created_by=user, last_updated_by=user, **kwargs)
         question.save()
         if tag_names:

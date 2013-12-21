@@ -12,7 +12,7 @@ class ModelTestCase(TestCase):
         return User.objects.create_user(username, *args)
 
     def create_question(self, *args, **kwargs):
-        return Question.objects.create_question(self.user, *args, **kwargs)
+        return Question.objects.create(self.user, *args, **kwargs)
 
     def answer_question(self, *args, **kwargs):
         return Answer.objects.answer_question(self.user, self.q, *args, **kwargs)

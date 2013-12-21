@@ -19,10 +19,7 @@ class QuerySet(query.QuerySet):
                 return cls(self.model, using=self._db)
 
             def __getattr__(self, name):
-                try:
-                    return getattr(self.get_queryset(), name)
-                except AttributeError:
-                    return super(Manager, self).__getattr__(name)
+                return getattr(self.get_queryset(), name)
 
             @classmethod
             def existed_manager(mgr, *args, **kwargs):
