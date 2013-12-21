@@ -1,0 +1,11 @@
+
+<p>名称 {{ tag.name }}<p>
+<p>描述: {{ tag.description }}<p>
+<p>图标: {{ tag.icon }}<p>
+<p>使用次数: {{ tag.used_count }}</p>
+<hr>
+问题
+
+{% for q in tag.questions.all %}
+    <p><a href="{% url 'question' q.id %}">{{ q.title }}</a></p>
+{% endfor %}

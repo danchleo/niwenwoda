@@ -1,0 +1,44 @@
+
+<h1>{{ question.title }}</h1>
+
+作者 {{ question.author.username }} 时间 {{ question.created_at }}
+
+<a href="{% url 'vote_question' question.id %}?value=1">支持 {{ question.up_count }}</a>
+<a href="{% url 'vote_question' question.id %}?value=-1">反对 {{ question.down_count }}</a>
+
+<a href="{% url 'edit_question' question.id %}">编辑</a>
+<a href="{% url 'delete_question' question.id %}">删除</a>
+
+
+<hr>
+
+{{ question.content }}
+
+<hr>
+
+
+<h2>回答</h2>
+
+{% for a in question.answers.existed %}
+
+    作者 {{ a.created_by.username }}
+    时间 {{ a.created_at }}
+
+    <a href="{% url 'vote_answer' a.id %}?value=1">支持 {{ a.up_count }}</a>
+    <a href="{% url 'vote_answer' a.id %}?value=-1">反对 {{ a.down_count }}</a>
+
+    <p>{{ a.content }} </p>
+
+    <a href="{% url 'edit_answer' a.id %}">编辑</a>
+    <a href="{% url 'delete_answer' a.id %}">删除</a>
+
+    <hr>
+{% endfor %}
+
+
+<form action="{% url 'answer_question' question.id %}" method="POST">
+    {% csrf_token %}
+    <textarea name="content"> </textarea>
+    <br>
+    <input type="submit" value="回答" />
+</form>

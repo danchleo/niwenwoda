@@ -1,0 +1,4 @@
+
+{% for t in tags %}
+   <p><a href="{% url 'tag' t.name %}">{{ t.name }}({{ t.used_count }})</a></p>
+{% endfor %}

@@ -3,7 +3,7 @@
 from django.db import models
 from django.utils import timezone
 from django.db.models import query
-from django.contrib.auth.models import User
+from zhidewen.models import User
 from zhidewen.models import signals
 
 

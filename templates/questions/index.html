@@ -1,0 +1,49 @@
+
+<p>
+    <a href="{% url 'home' %}">问答</a>
+    <a href="{% url 'users' %}">用户</a>
+    <a href="{% url 'tags' %}">标签</a>
+</p>
+
+<p>
+    <a href="{% url 'ask' %}">提问</a>
+</p>
+
+<p>
+{% if user.is_authenticated %}
+    当前用户 {{ user.username }}
+    <a href="{% url 'logout' %}">退出</a>
+{% else %}
+    <a href="{% url 'login' %}">登陆</a>
+{% endif %}
+</p>
+
+<p>已回答 {{ answered_count }} 未回答 {{ unanswered_count }}</p>
+
+<hr>
+
+<a href="{% url 'newest_questions' %}">最新</a>
+<a href="{% url 'hottest_questions' %}">最热</a>
+<a href="{% url 'unanswered_questions' %}">未回答</a>
+
+<hr>
+
+{% for q in questions %}
+
+    <p><a href="{% url 'question' q.id %}">{{ q.title }}</a> </p>
+
+    <p>投票 {{ q.score }} 回答 {{ q.answer_count }} 浏览 {{ q.view_count }}</p>
+
+    <p>作者 <a href="{% url 'user' q.author.username %}">{{ q.author.username }}</a></p>
+    <p>头像 </p>
+    <p>时间 {{ q.created_at }}</p>
+
+
+    <p>标签
+    {% for tag in  q.tags.all %}
+       <a href="{% url 'tag' tag.name %}">{{ tag.name }}</a>
+    {% endfor %}
+    </p>
+
+    <hr>
+{% endfor %}

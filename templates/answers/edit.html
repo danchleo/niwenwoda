@@ -1,0 +1,9 @@
+
+<p>{{ answer.question.title }}</p>
+
+<form action="{% url 'edit_answer' answer.id %}" method="POST">
+    {% csrf_token %}
+    <textarea name="content">{{ answer.content }}</textarea>
+    <br>
+    <input type="submit" value="回答" />
+</form>

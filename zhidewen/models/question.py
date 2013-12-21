@@ -1,8 +1,6 @@
 #-*- encoding: utf-8 -*-
 
 from django.db import models
-from django.contrib.auth.models import User
-from django.utils import timezone
 from zhidewen.models import base
 from zhidewen.models.tag import Tag
 
@@ -53,6 +51,14 @@ class Question(base.ContentModel):
     class Meta:
         app_label = 'zhidewen'
         db_table = 'zhidewen_questions'
+
+    @property
+    def score(self):
+        return self.up_count - self.down_count
+
+    @property
+    def author(self):
+        return self.created_by
 
     def count_ranking(self):
         return sum([self.answer_count*5,

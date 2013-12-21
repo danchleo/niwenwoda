@@ -26,7 +26,7 @@ class AnswerManager(AnswerQuerySet.as_manager()):
 
 class Answer(base.ContentModel):
     objects = AnswerManager()
-    exsited = AnswerManager.existed_manager()
+    existed = AnswerManager.existed_manager()
 
     question = models.ForeignKey(Question, related_name='answers', verbose_name=u'问题')
     content = models.TextField(verbose_name=u'答案')
