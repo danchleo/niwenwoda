@@ -1,7 +1,8 @@
 #-*- encoding: utf-8 -*-
 
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
+from django.db.models.signals import post_save
 
 
 class Profile(models.Model):
@@ -18,18 +19,25 @@ class Profile(models.Model):
         app_label = 'zhidewen'
         db_table = 'auth_user_profile'
 
-# 刚注册的用户默认的用户组
-# 系统初始用户组：admin、common_user、newbie
-default_role = Group.objects.get(name=u'newbie')
 def create_user_profile(sender, instance, created, **kwargs):
     """
     创建用户的时同时创建相关的 UserProfile
     """
     if created:
-        related_profile = Profile()
-        for field in Pofile._meta.get_all_field_names() and field in kwargs:
-            attrs[field] = kwargs[field]
-        related_profile.__dict__ = attrs
+
+        # 刚注册的用户默认的用户组
+        # 系统初始用户组：admin、common_user、newbie
+        default_group = Group.objects.filter(name=u'newbie')
+
+        fields = Profile._meta.get_all_field_names()
+        related_profile = Profile(user=instance)
+        related_profile.__dict__.update({
+            field:kwargs[field] for field in fields if field in kwargs
+        })
+
+        if default_group and related_profile.group == None:
+            related_profile.group = default_group[0]
+
         related_profile.save()
         
 post_save.connect(create_user_profile, sender=User)

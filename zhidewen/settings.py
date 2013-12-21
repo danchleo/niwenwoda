@@ -1,5 +1,17 @@
 # Django settings for zhidewen project.
 
+# ............................ local settings ..............................
+from os.path import abspath, basename, dirname, join, normpath
+from sys import path
+PROJECT_ROOT = dirname(abspath(__file__))
+SITE_ROOT = dirname(PROJECT_ROOT)
+SITE_NAME = basename(PROJECT_ROOT)
+path.append(SITE_ROOT)
+FIXTURE_DIRS = (
+    normpath(join(SITE_ROOT, 'fixtures')),
+)
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
