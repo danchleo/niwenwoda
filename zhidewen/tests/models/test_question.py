@@ -12,7 +12,7 @@ class TestQuestion(ModelTestCase):
         self.user = self.create_user('test')
 
     def test_create_question(self):
-        question = Question.objects.create_question(self.user, 'Foo', 'Bar')
+        question = Question.objects.create(self.user, 'Foo', 'Bar')
 
         self.assertEqual(Question.objects.count(), 1)
         self.assertEqual(list(self.user.questions.all()), [question])
@@ -72,7 +72,7 @@ class TestListQuestion(ModelTestCase):
         self.assertEqual(1, Question.objects.answered().count())
 
     def test_existed_manager_and_soft_delete(self):
-        self.assertEqual(list(Question.existed.fresh()), [self.q2, self.q3, self.q1])
+        self.assertEqual(list(Question.objects.fresh()), [self.q2, self.q3, self.q1])
         self.q2.soft_delete()
         self.assertEqual(list(Question.existed.fresh()), [self.q3, self.q1])
         self.assertEqual(list(Question.objects.fresh()), [self.q2, self.q3, self.q1])
@@ -84,13 +84,13 @@ class TestQuestionTag(ModelTestCase):
         self.user = self.create_user('test')
 
     def test_create_question_with_tag_names(self):
-        question = Question.objects.create_question(self.user, 'Foo', 'Foo', tag_names=['foo', 'bar'])
+        question = Question.objects.create(self.user, 'Foo', 'Foo', tag_names=['foo', 'bar'])
         tags = Question.objects.get(pk=question.id).tags.all()
         self.assertEqual([t.name for t in tags], ['foo', 'bar'])
 
     def test_create_question_with_existed_tag_name(self):
         Tag.objects.create(created_by=self.user, name='foo')
-        question = Question.objects.create_question(self.user, 'Foo', 'Foo', tag_names=['foo', 'bar'])
+        question = Question.objects.create(self.user, 'Foo', 'Foo', tag_names=['foo', 'bar'])
         tags = Question.objects.get(pk=question.id).tags.all()
         self.assertEqual([t.name for t in tags], ['foo', 'bar'])
         self.assertEqual(Tag.objects.count(), 2)

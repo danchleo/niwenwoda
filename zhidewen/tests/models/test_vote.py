@@ -8,7 +8,7 @@ class TestVote(TestCase):
 
     def setUp(self):
         self.user = User.objects.create_user('test', 'test@zhidewen.com', 'test')
-        self.question = Question.objects.create_question(self.user, 'Foo', 'Bar')
+        self.question = Question.objects.create(self.user, 'Foo', 'Bar')
 
     def reload_question(self):
         return Question.objects.get(pk=self.question.pk)
