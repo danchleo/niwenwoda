@@ -29,7 +29,8 @@ urlpatterns = patterns('zhidewen.views',
 
     url(r'^users/$', 'users.index', name='users'),
     url(r'^u/([^/]*)/$', 'users.show', name='user'),
-
+    url(r'^u/([^/]*)/questions/$', 'users.contents', name='user_questions', kwargs={'template': 'users/questions.html'}),
+    url(r'^u/([^/]*)/answers/$', 'users.contents', name='user_answers', kwargs={'template': 'users/answers.html'}),
 )
 
 urlpatterns += patterns('',
