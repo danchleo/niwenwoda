@@ -1,8 +1,17 @@
 #-*- encoding: utf-8 -*-
 
 from django.db import models
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import AbstractUser, Group
 from django.db.models.signals import post_save
+
+
+class User(AbstractUser):
+    question_count = models.PositiveIntegerField(default=0, verbose_name=u'提问数')
+    answer_count = models.PositiveIntegerField(default=0, verbose_name=u'回答数')
+
+    class Meta:
+        app_label = 'zhidewen'
+        db_table = 'zhidewen_users'
 
 
 class Profile(models.Model):
@@ -17,7 +26,7 @@ class Profile(models.Model):
 
     class Meta:
         app_label = 'zhidewen'
-        db_table = 'auth_user_profile'
+        db_table = 'zhidewen_user_profiles'
 
 
 def create_user_profile(sender, instance, created, **kwargs):

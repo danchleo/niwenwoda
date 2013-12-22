@@ -12,6 +12,11 @@ path.append(SITE_ROOT)
 # )
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+AUTH_USER_MODEL = 'zhidewen.User'
+
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -54,9 +59,6 @@ USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
-
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/'
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
