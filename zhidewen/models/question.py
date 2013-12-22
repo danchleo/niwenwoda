@@ -2,6 +2,7 @@
 
 from django.db import models
 from zhidewen.models import base
+from zhidewen.models import signals
 from zhidewen.models.tag import Tag
 
 
@@ -31,6 +32,8 @@ class QuestionManager(QuestionQuerySet.as_manager()):
         if tag_names:
             for tag_name in tag_names:
                 question.add_tag(user, tag_name)
+
+        signals.create_content.send(question.__class__, instance=question)
         return question
 
 
@@ -78,3 +81,18 @@ class Question(base.ContentModel):
         self.tags.remove(tag)
         tag.used_count -= 1
         tag.save()
+
+
+
+def create_question(instance, **kwargs):
+    instance.created_by.question_count += 1
+    instance.created_by.save()
+
+
+def delete_question(instance, **kwargs):
+    instance.created_by.question_count -= 1
+    instance.created_by.save()
+
+
+signals.create_content.connect(create_question, sender=Question)
+signals.delete_content.connect(delete_question, sender=Question)
