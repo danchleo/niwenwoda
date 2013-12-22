@@ -1,2 +1,7 @@
 
 {{ user.username }}
+
+<hr>
+
+<a href="{% url 'user_questions' user.username %}">用户提问({{ user.question_count }})</a>
+<a href="{% url 'user_answers' user.username %}">用户回答{{ user.answer_count }}</a>

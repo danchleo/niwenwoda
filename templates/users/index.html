@@ -1,5 +1,10 @@
 
 
 {% for u in users %}
-    <p><a href="{% url 'user' u.username %}">{{ u.username }}</a></p>
+    <p>
+        <a href="{% url 'user' u.username %}">{{ u.username }}</a>
+        提问 {{ u.question_count }}
+        回答 {{ u.answer_count }}
+    </p>
+
 {% endfor %}

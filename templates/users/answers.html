@@ -1,0 +1,9 @@
+用户 {{ user.username }}
+
+<hr>
+
+{% for a in user.answers.existed %}
+    <p><a href="{% url 'question' a.question.id %}">{{ a.question.title }}</a></p>
+    <p>{{ a.content }}</p>
+    <hr>
+{% endfor %}

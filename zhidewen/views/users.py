@@ -13,3 +13,7 @@ def show(request, username):
     user = User.objects.get(username=username)
     return render(request, 'users/show.html', {'user': user})
 
+
+def contents(request, username, template):
+    user = User.objects.get(username=username)
+    return render(request, template, {'user': user })

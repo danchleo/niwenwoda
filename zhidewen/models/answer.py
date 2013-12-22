@@ -39,18 +39,24 @@ class Answer(base.ContentModel):
         return self.up_count - self.down_count
 
 
-def up_answer_count_and_refresh_question(instance, **kwargs):
+def create_answer(instance, **kwargs):
+    instance.created_by.answer_count += 1
+    instance.created_by.save()
     instance.question.answer_count += 1
     instance.question.last_refreshed_at = timezone.now()
     instance.question.save()
 
-def down_answer_count(instance, **kwargs):
+
+def delete_answer(instance, **kwargs):
     instance.question.answer_count -= 1
     instance.question.save()
+    instance.created_by.answer_count -= 1
+    instance.created_by.save()
 
 
-signals.delete_content.connect(down_answer_count, sender=Answer)
-signals.create_content.connect(up_answer_count_and_refresh_question, sender=Answer)
+signals.create_content.connect(create_answer, sender=Answer)
+signals.delete_content.connect(delete_answer, sender=Answer)
+
 
 
 
