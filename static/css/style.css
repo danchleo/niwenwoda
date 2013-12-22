@@ -8,6 +8,53 @@ body{
 	color: #333;
 	min-width: 970px;
 }
+/* change text selection color */
+::selection {
+    background:#70C301; 
+    color:#FFF;
+    text-shadow: 1px 1px 1px #888;
+}
+
+::-moz-selection {
+    background:#70C301; 
+    color:#FFF;
+    text-shadow: 1px 1px 1px #888;
+}
+
+::-webkit-selection {
+    background:#70C301; 
+    color:#FFF;
+    text-shadow: 1px 1px 1px #888;
+}
+/* use animation when menu item hover */
+@keyframes main_menu_item
+{
+	0% {margin-top: 0px;}
+	60% {margin-top: -10px;}
+	100% {margin-top: 0px;}
+}
+
+@-moz-keyframes main_menu_item /* Firefox */
+{
+	0% {margin-top: 0px;}
+	60% {margin-top: -10px;}
+	100% {margin-top: 0px;}
+}
+
+@-webkit-keyframes main_menu_item /* Safari 和 Chrome */
+{
+	0% {margin-top: 0px;}
+	60% {margin-top: -10px;}
+	100% {margin-top: 0px;}
+}
+
+@-o-keyframes main_menu_item /* Opera */
+{
+	0% {margin-top: 0px;}
+	60% {margin-top: -10px;}
+	100% {margin-top: 0px;}
+}
+
 .top{
 	padding-left: 15%;
 	padding-right: 15%;
@@ -19,15 +66,16 @@ body{
 }
 .menu{
 	padding-left: 15%;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	padding-right: 15%;
 	background-color: #4E7ADD;
-	height: 45px;
+	height: 47px;
 }
 .menu .list{
 	padding-top: 2px;
 	float: left;
 	width: 65%;
+	position: relative;
 }
 .menu .list a{
 	font-size: 1.5em;
@@ -44,7 +92,11 @@ body{
 .menu .list a:hover{
 	text-decoration: none;
 	background-color: #70C301;
-	border-radius: 2px 2px 0 0;
+	border-radius: 3px 3px 0 0;
+	animation: main_menu_item .5s;
+	-moz-animation: main_menu_item .5s;	/* Firefox */
+	-webkit-animation: main_menu_item .5s;	/* Safari 和 Chrome */
+	-o-animation: main_menu_item .5s;	/* Opera */
 }
 .home_icon{
 	background-image: url('../images/tools.png');
@@ -54,10 +106,10 @@ body{
 	margin-right: 5px;
 }
 .account{
-	/*float: left;*/
-	line-height: 2.2em;
+	float: right;
+	line-height: 40px;
+	margin-top: 3.5px;
 	height: 40px;
-	margin-top: 7px;
 	font-size: 1.5em;
 	color: #FFF;
 }
@@ -82,7 +134,7 @@ body{
 	float: left;
 }
 .search_input input{
-	padding: 8px 5px 4px 5px;
+	padding: 6px 5px;
 	border: 0px;
 	border-radius: 4px 0 0 4px;
 	width: 326px;
@@ -114,6 +166,7 @@ body{
 	text-align: right;
 	margin-right: 10px;
 	line-height: 2.5em;
+	margin-bottom: -2px;
 }
 .total_count{
 	float: left;
@@ -136,10 +189,12 @@ body{
 .main_tags a:hover{
 	background-color: #B6D0F4;
 	text-decoration: none;
-	
+	border-bottom-color: #FFF;
+	background-image: -moz-linear-gradient(top, #B6D0F4, #FFFFF); /* Firefox */
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #B6D0F4), color-stop(1, #FFFFFF)); /* Saf4+, Chrome */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#B6D0F4', endColorstr='#FFFFFF', GradientType='0'); /* IE*/
 }
 .details{
-	margin-top : -1px;
 	margin-right: 11px;
 	border: 1px solid #B6D0F4;
 	padding: 0px 20px 20px 20px;
