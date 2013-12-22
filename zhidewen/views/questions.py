@@ -5,6 +5,7 @@ from django import http
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.forms.models import model_to_dict
 from zhidewen.models import Question
 
@@ -22,8 +23,11 @@ class QuestionForm(forms.Form):
 
 
 def render_list(request, questions):
+    page = Paginator(questions, 3)
+    cur_page = page.page(request.GET.get('page', 1))
     context = {
-        'questions': questions,
+        'page': cur_page,
+        'questions': cur_page.object_list,
         'answered_count': questions.answered().count(),
         'unanswered_count': questions.unanswered().count(),
     }
