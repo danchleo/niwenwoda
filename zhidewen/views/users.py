@@ -1,58 +1,63 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
+import json
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render, render_to_response
 from django.forms.models import model_to_dict
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User, Group
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.messages import *
 from zhidewen.models import User
-from zhidewen.forms import LoginForm, RegisterForm
+from zhidewen.forms import RegisterForm, ProfileForm
 
 
 def login(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('index'))
     if request.method == 'POST':
-        form = LoginForm(request.POST)
+        form = AuthenticationForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            # ÑéÖ¤
+            # éªŒè¯
             user = authenticate(username=username, password=password)
             if user:
-                login(request, user)
-                # Èç¹ûÓÃ‘ôÊÇÔÚÔL†–Ä³í“ÃæµÄ•rºòÌøŞDß^íµÄ£¬µÇê‘³É¹¦Ö®áá×Ô„ÓŞDÏòÖ®
-                # Ç°ÔL†–µÄí“Ãæ¡£
+                django_login(request, user)
+                # å¦‚æœç”¨æˆ¶æ˜¯åœ¨è¨ªå•æŸé é¢çš„æ™‚å€™è·³è½‰éä¾†çš„ï¼Œç™»é™¸æˆåŠŸä¹‹å¾Œè‡ªå‹•è½‰å‘ä¹‹
+                # å‰è¨ªå•çš„é é¢ã€‚
                 next_url = request.GET.get('next', reverse('index'))
                 return HttpResponseRedirect(next_url)
-            error(request, u'±§Ç¸£¬²»ÄÜÍ¨¹ıÑéÖ¤£¡')
+            error(request, u'æŠ±æ­‰ï¼Œä¸èƒ½é€šè¿‡éªŒè¯ï¼')
     else:
-        form = LoginForm()
+        form = AuthenticationForm()
 
     content = {
         'form': form,
-        'title': u'µÇÂ¼',
+        'title': u'ç™»å½•',
     }
 
     return render_to_response('users/login.html', content,
                               context_instance=RequestContext(request))
 
+
 @login_required
 def logout(request):
     """
-    ÍË³ö£¬×ªÏòµÇÂ¼Ò³Ãæ
+    é€€å‡ºï¼Œè½¬å‘ç™»å½•é¡µé¢
     """
-    logout(request)
+    django_logout(request)
     return HttpResponseRedirect(reverse('login'))
 
+
 def register(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('index'))
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -67,58 +72,68 @@ def register(request):
 
     content = {
         'form': form,
-        'title': u'×¢²á',
+        'title': u'æ³¨å†Œ',
     }
 
     return render_to_response('accounts/register.html', content,
                               context_instance=RequestContext(request))
 
+
 def wall(request):
     """
-    ÓÃ»§Ç½Ò³Ãæ
+    ç”¨æˆ·å¢™é¡µé¢
     """
-    users = User.objects.filter(is_active=True).order_by('-reputation')
-    content = {'users': users}
-    return render_to_response('users/index.html', content,
+    users = User.objects.filter(is_active=True).order_by('-profile__reputation')
+    context = {'users': users}
+    return render_to_response('users/index.html', context,
                               context_instance=RequestContext(request))
 
-def home(request, username):
+
+def page(request, username):
     """
-    ÓÃ»§Ö÷Ò³
+    ç”¨æˆ·ä¸»é¡µ
     eg: /u/catroll
     """
     user = User.objects.get(username=username)
     return render(request, 'users/show.html', {'user': user})
 
+
 @login_required
 def change_profile(request):
     """
-    ĞŞ¸Ä¸öÈËĞÅÏ¢
+    ä¿®æ”¹ä¸ªäººä¿¡æ¯
     """
-    return HttpResponse('')
+    if request.method == 'POST':
+        pass
+    else:
+        form = ProfileForm()
+
+    context = {
+        'form': form
+    }
+
+    return render_to_response('users/index.html', context,
+                              context_instance=RequestContext(request))
+
 
 @login_required
 def change_password(request):
     """
-    ĞŞ¸ÄÃÜÂë
+    ä¿®æ”¹å¯†ç 
     """
     return HttpResponse('')
 
 
-@login_required
 def most_prestigious(request):
     """
-    ·µ»Ø 15 ¸ö×îÓĞÉùÍûµÄÓÃ»§
+    è¿”å› 15 ä¸ªæœ€æœ‰å£°æœ›çš„ç”¨æˆ·
+    json apiï¼Œç»™é¡µé¢è°ƒç”¨ï¼Œå¯èƒ½ç”¨ä¸ä¸Šï¼Œæš‚æ—¶ä¸ç®¡
     """
-    users = User.objects.filter(is_active=True).order_by('-reputation')[:10]
+    users = User.objects.filter(is_active=True).order_by('-profile__reputation')[:10]
+    print users
     return HttpResponse(json.dumps({}))
+
 
 def contents(request, username, template):
     user = User.objects.get(username=username)
-    return render(request, template, {'user': user })
-
-def _list(qs):
-    return {}
-
-def _item(instance):
-    return {}
+    return render(request, template, {'user': user})

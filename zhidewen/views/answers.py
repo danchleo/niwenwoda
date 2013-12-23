@@ -31,8 +31,8 @@ def answer_question(request, question_id):
 
 
 @login_required
-def update(request, id):
-    answer = Answer.existed.get(pk=id)
+def update(request, answer_id):
+    answer = Answer.existed.get(pk=answer_id)
     content = request.POST.get('content')
     if request.method == 'POST' and content:
         answer.update(request.user, content=content)
@@ -41,14 +41,14 @@ def update(request, id):
 
 
 @login_required
-def delete(request, id):
-    answer = Answer.existed.get(pk=id)
+def delete(request, answer_id):
+    answer = Answer.existed.get(pk=answer_id)
     answer.soft_delete()
     return redirect(reverse('question', args=(answer.question.id,)))
 
 @login_required
-def close(request, id):
-    answer = Answer.existed.get(pk=id)
+def close(request, answer_id):
+    answer = Answer.existed.get(pk=answer_id)
     answer.close()
     return HttpResponse(json.dumps({
         'status': 'success' if answer.close else 'failure'

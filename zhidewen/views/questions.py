@@ -1,6 +1,5 @@
 #-*- encoding: utf-8 -*-
 
-from django import forms
 from django import http
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
@@ -8,18 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.forms.models import model_to_dict
 from zhidewen.models import Question
-
-
-class QuestionForm(forms.Form):
-
-    title = forms.CharField(label=u'标题')
-    content = forms.CharField(label=u'内容')
-    tag_names = forms.CharField(label=u'标签')
-
-    def clean(self):
-        cd = self.cleaned_data
-        cd['tag_names'] = cd['tag_names'].split(' ')
-        return cd
+from zhidewen.forms import QuestionForm
 
 
 def render_list(request, questions):
@@ -57,16 +45,16 @@ def ask(request):
     return render(request, 'questions/new.html', {'form': form})
 
 
-def show(request, id):
-    question = Question.existed.get(pk=id)
+def show(request, question_id):
+    question = Question.existed.get(pk=question_id)
     question.view_count += 1
     question.save()
     return render(request, 'questions/show.html', {'question': question})
 
 
 @login_required
-def update(request, id):
-    question = Question.existed.get(pk=id)
+def update(request, question_id):
+    question = Question.existed.get(pk=question_id)
     if not request.user == question.created_by:
         return http.HttpResponse('403')
 
@@ -84,7 +72,6 @@ def update(request, id):
 
 
 @login_required
-def delete(request, id):
-    Question.existed.get(pk=id).soft_delete()
+def delete(request, question_id):
+    Question.existed.get(pk=question_id).soft_delete()
     return redirect(reverse('home'))
-

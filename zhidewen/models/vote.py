@@ -9,42 +9,64 @@ from zhidewen.models.user import User
 class VoteManager(models.Manager):
 
     def vote(self, user, obj, value):
-        # value == 0 为取消投票
-        model = obj.__class__
-        content_type = ContentType.objects.get_for_model(model)
+        """
+        投票
+        @param user: 投票人
+        @param obj: 被投票对象
+        @param value: 0 为取消投票
+        """
+
+        if value not in Vote.valid_values:
+            return False
 
         try:
-            vote = self.get(content_type=content_type, object_pk=obj.id, voted_by=user)
+            vote = self.get(content_object=obj, voted_by=user)
+            if vote.value == value:
+                return vote
         except self.model.DoesNotExist:
             vote = self.model(content_object=obj, voted_by=user, value=0)
 
-        old_vote = vote.value
+        #model = obj.__class__
+        #content_type = ContentType.objects.get_for_model(model)
 
-        if not old_vote == value:
-            vote.value = value
-            vote.save()
-            self._update_vote_count(obj, old_vote, value)
+        #try:
+        #    vote = self.get(content_type=content_type, object_pk=obj.id, voted_by=user)
+        #except self.model.DoesNotExist:
+        #    vote = self.model(content_object=obj, voted_by=user, value=0)
+
+        old_value = vote.value
+        vote.value = value
+        vote.save()
+        self._update_vote_count(obj, old_value, value)
 
         return vote
 
-    def _update_vote_count(self, obj, before, after):
-        if before == 1:
-            obj.up_count -= 1
-        elif before == -1:
-            obj.down_count -= 1
-        if after == 1:
+    @staticmethod
+    def _update_vote_count(obj, before, after):
+        if before not in Vote.valid_values or after not in Vote.valid_values or before == after:
+            return
+        if after == 0:
+            if before == 1:
+                obj.up_count -= 1
+            elif before == -1:
+                obj.down_count -= 1
+        elif after == 1:
             obj.up_count += 1
+            obj.down_count -= 1
         elif after == -1:
+            obj.up_count -= 1
             obj.down_count += 1
         return obj.save()
 
 
 class Vote(models.Model):
     objects = VoteManager()
+    valid_values = [-1, 0, 1]
 
     content_type = models.ForeignKey(ContentType)
     object_pk = models.TextField()
     content_object = generic.GenericForeignKey("content_type", "object_pk")
+
     value = models.IntegerField(verbose_name=u'值')
     voted_by = models.ForeignKey(User, verbose_name=u'投票人')
     voted_at = models.DateTimeField(auto_now=True, verbose_name=u'投票时间')
@@ -53,3 +75,10 @@ class Vote(models.Model):
         app_label = 'zhidewen'
         db_table = 'zhidewen_votes'
         unique_together = (('content_type', 'object_pk', 'voted_by'), )
+
+
+def vote(self, obj, value):
+    pass
+
+from zhidewen.models import User
+User.vote = vote

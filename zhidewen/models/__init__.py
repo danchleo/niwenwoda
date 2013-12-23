@@ -39,4 +39,4 @@ def create_testuser(app, created_models, verbosity, **kwargs):
         print 'Test user already exists.'
 
 signals.post_syncdb.connect(create_testuser,
-    sender=auth_models, dispatch_uid='common.models.create_testuser')
+                            sender=auth_models, dispatch_uid='common.models.create_testuser')

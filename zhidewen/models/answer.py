@@ -40,6 +40,11 @@ class Answer(base.ContentModel):
 
 
 def create_answer(instance, **kwargs):
+    """
+    回答问题后的事务：
+        回答人的答题次数加一
+        问题的回答次数加一，刷新时间更新为当前时间
+    """
     instance.created_by.answer_count += 1
     instance.created_by.save()
     instance.question.answer_count += 1
@@ -48,15 +53,16 @@ def create_answer(instance, **kwargs):
 
 
 def delete_answer(instance, **kwargs):
-    instance.question.answer_count -= 1
-    instance.question.save()
+    """
+    删除问题后的事务：
+        回答人的答题次数减一
+        问题的回答次数减一   注意：刷新时间不做更新
+    """
     instance.created_by.answer_count -= 1
     instance.created_by.save()
+    instance.question.answer_count -= 1
+    instance.question.save()
 
 
 signals.create_content.connect(create_answer, sender=Answer)
 signals.delete_content.connect(delete_answer, sender=Answer)
-
-
-
-

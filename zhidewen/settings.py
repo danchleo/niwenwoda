@@ -7,15 +7,15 @@ PROJECT_ROOT = dirname(abspath(__file__))
 SITE_ROOT = dirname(PROJECT_ROOT)
 SITE_NAME = basename(PROJECT_ROOT)
 path.append(SITE_ROOT)
-# FIXTURE_DIRS = (
-#     normpath(join(SITE_ROOT, 'fixtures')),
-# )
-# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FIXTURE_DIRS = (
+    normpath(join(SITE_ROOT, 'fixtures')),
+)
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 AUTH_USER_MODEL = 'zhidewen.User'
 
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG

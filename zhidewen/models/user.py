@@ -31,24 +31,22 @@ class Profile(models.Model):
 
 
 def create_user_profile(sender, instance, created, **kwargs):
-     """
-     创建用户的时同时创建相关的 UserProfile
-     """
-     if created:
+    """
+    创建用户的时同时创建相关的 UserProfile
+    """
+    if created:
 
-         # 刚注册的用户默认的用户组
-         # 系统初始用户组：admin、common_user、newbie
-         default_group = Group.objects.filter(name=u'newbie')
+        fields = Profile._meta.get_all_field_names()
+        related_profile = Profile(user=instance)
+        related_profile.__dict__.update({
+            field:kwargs[field] for field in fields if field in kwargs
+        })
 
-         fields = Profile._meta.get_all_field_names()
-         related_profile = Profile(user=instance)
-         related_profile.__dict__.update({
-             field:kwargs[field] for field in fields if field in kwargs
-         })
+        # 刚注册的用户默认的用户组
+        # 系统初始用户组：admin、common_user、newbie
+        if Group.objects.filter(name=u'newbie').exists() and instance.group is None:
+            instance.groups.add(Group.objects.filter(name=u'newbie')[0])
 
-         if default_group and related_profile.group == None:
-             related_profile.group = default_group[0]
-
-         related_profile.save()
+        related_profile.save()
 
 post_save.connect(create_user_profile, sender=User)

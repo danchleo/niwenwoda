@@ -22,6 +22,7 @@ class TagManager(TagQuerySet.as_manager()):
 
 class Tag(models.Model):
     objects = TagManager()
+    existed = TagManager.existed_manager()
 
     name = models.CharField(max_length=50, unique=True, verbose_name=u'名称')
     icon = models.URLField(blank=True, verbose_name=u'图标')

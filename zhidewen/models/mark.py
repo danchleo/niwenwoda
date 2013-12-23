@@ -32,6 +32,7 @@ class MarkManager(models.Manager):
         content_type = ContentType.objects.get_for_model(model)
         return content_type.marks.filter(marked_by=user)
 
+
 class Mark(models.Model):
     objects = MarkManager()
 

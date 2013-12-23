@@ -95,7 +95,6 @@ class Question(base.ContentModel):
         self.close = False
 
 
-
 def create_question(instance, **kwargs):
     instance.created_by.question_count += 1
     instance.created_by.save()
