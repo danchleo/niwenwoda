@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="css/theme-blue.css">
+<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<div id="header" class="zdw-margin-bottom-10px">
+  <div class="container">
+    <div class="logo">放logo</div>
+    <div class="tianqi">放天气</div>
+  </div>
+  <!--使用bootstrap的导航条-->
+  <div class="navbar navbar-static-top">
+    <div class="navbar-inner zdw-nav-bg">
+      <div class="container">
+        <ul class="nav zdw-nav">
+          <li><a href="#"><i class="zdw-icon-home"></i>首页</a></li>
+          <li><a href="#">所有问题</a></li>
+          <li><a href="#">标签</a></li>
+          <li><a href="#">我的收藏</a></li>
+          <li><a href="#">用户中心</a></li>
+        </ul>
+        <div class="zdw-nav-user-info"> 欢迎来到值得问&nbsp;&nbsp;[<a href="#">请登录</a>]&nbsp;&nbsp;[<a href="#">免费注册</a>] </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--搜索-->
+<div id="search" class="zdw-margin-bottom-10px">
+  <div class="container zdw-search-bg">
+    <div class="search input">
+      <input name="q" type="text" class="zdw-search-input"/>
+    </div>
+    <div class="zdw-search-searchbtn"><img src="image/search_btn.gif" width="94" height="32" alt="搜索" /></div>
+    <div class="zdw-search-questionbtn"><img src="image/question_btn.gif" width="133" height="38" alt="要我提问" /></div>
+  </div>
+</div>
+<div class="container zdw-margin-bottom-10px"> 
+  <!--使用bootstrap的布局-->
+  <div class="container-fluid zdw-padding-0px">
+    <div class="row-fluid">
+      <div class="span9"> 
+        <!--这里是内容页 -->
+        <form class="zdw-form-question">
+          <fieldset>
+            <legend>我要提问</legend>
+            <label class="zdw-icon zdw-icon-ask" for="question-title">一句话描述您的疑问</label>
+            <textarea id="question-title" rows="2" placeholder="请在这里概述您的问题" class="zdw-width100p"></textarea>
+            <label class="zdw-icon zdw-icon-tag" for="question-tag">添加标签</label>
+            <input id="question-tag" type="text" placeholder="请在这里输入标签" class="zdw-width100p"></input>
+            <span class="help-block">请使用空格分隔多个标签</span>
+            <label>问题补充
+              <bdi>(选填)</bdi>
+            </label>
+            <textarea id="question-body" rows="4" placeholder="" class="zdw-width100p"></textarea>
+          </fieldset>
+          <button type="submit" class="btn btn-success">提交问题</button>
+        </form>
+      </div>
+      <div class="span3"> 
+        <!--这里是侧边栏--></div>
+    </div>
+  </div>
+</div>
+<div id="footer">
+  <div class="container">
+    <ul class="breadcrumb">
+      <li><a href="#">关于我们</a> <span class="divider">|</span></li>
+      <li>版权所有：值得问 <span class="divider">|</span></li>
+      <li class="active">版本：v 1.0</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
