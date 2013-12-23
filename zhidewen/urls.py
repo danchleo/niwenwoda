@@ -25,7 +25,8 @@ urlpatterns = patterns('zhidewen.views',
     url(r'^a/(\d+)/vote/', 'votes.vote_answer', name='vote_answer'),
 
     url(r'^tags/$', 'tags.index', name='tags'),
-    url(r'^t/([^/]*)/$', 'tags.questions', name='tag'),
+    url(r'^t/(?P<tag_name>([^/]*))/$', 'tags.questions', name='tag'),
+    url(r'^tags/hostest$', 'tag.hostest', name='hostest_tags')
 
     url(r'^users/$', 'users.index', name='users'),
     url(r'^u/([^/]*)/$', 'users.show', name='user'),

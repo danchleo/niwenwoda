@@ -17,9 +17,9 @@
     },
     {
         "pk": 3,
-        "model": "auth.newbie",
+        "model": "auth.group",
         "fields": {
-            "name": "common_user",
+            "name": "newbie",
             "permissions": []
         }
     }

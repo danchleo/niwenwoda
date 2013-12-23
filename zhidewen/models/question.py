@@ -23,6 +23,12 @@ class QuestionQuerySet(base.QuerySet):
     def answered(self):
         return self.filter(answer_count__gt=0)
 
+    def close(self):
+        return self._clone().update({'closed': True})
+
+    def open(self):
+        return self._clone().update({'closed': False})
+
 
 class QuestionManager(QuestionQuerySet.as_manager()):
 
@@ -81,6 +87,12 @@ class Question(base.ContentModel):
         self.tags.remove(tag)
         tag.used_count -= 1
         tag.save()
+
+    def close(self):
+        self.close = True
+
+    def open(self):
+        self.close = False
 
 
 

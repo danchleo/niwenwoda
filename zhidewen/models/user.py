@@ -22,6 +22,7 @@ class Profile(models.Model):
     gender = models.CharField(max_length=10, verbose_name=u'性别')
     about = models.TextField(verbose_name=u'个人简介', null=True, blank=True)
     website = models.URLField(verbose_name=u'个人网站', null=True, blank=True)
+    reputation = models.IntegerField(verbose_name=u'声望', default=0, blank=True)
     email_is_verified = models.BooleanField(verbose_name=u'邮箱地址是否已验证', default=False, blank=True)
 
     class Meta:
