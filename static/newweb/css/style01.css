@@ -1,0 +1,258 @@
+@charset "utf-8";
+* {
+	font-family: "Microsoft Yahei", Helvetica, arial, "宋体";
+	font-size: 12px;
+}
+body {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	width: 100%;
+}
+#bodywrapper, #header, #nav, #search, #content, #footer {
+	clear: both;
+	width: 100%;
+}
+
+a{
+	color:#0077cf;
+	text-decoration:none;
+}
+
+a:hover, .text-color-438a20{
+	color:#438a20;	
+}
+
+.headerbar.wrapper, .nav.wrapper, .search.wrapper, .content.wrapper {
+	width : 980px;
+	margin: 0px auto 10px auto;
+}
+.heightfix {
+	clear: both;
+}
+.headerbar.wrapper {
+	padding: 7px;
+	margin-bottom: 0px;
+}
+.headerbar.logo {
+	height: 60px;
+	width: 200px;
+	float: left;
+	border: #b6d0f4 solid 1px;
+	display: block;
+}
+.headerbar.right {
+	height: 60px;
+	width: 400px;
+	float: right;
+	border: #b6d0f4 solid 1px;
+	display: block;
+}
+#nav {
+	height: 45px;
+	background-color: #4e7add;
+}
+.nav.menus {
+	float: left;
+	padding: 0;
+	margin: 0px;
+}
+.nav.menus li {
+	list-style-type: none;
+	display: block;
+	float: left;
+	margin-top: 2px;
+	height: 43px;
+	width: 120px;
+	font-size: 14px;
+	font-weight: bold;	/*padding:5px;*/
+	color: #FFF;
+}
+.nav.user {
+	float: right;
+	margin-top: 2px;
+	padding: 12px 0;
+	font-weight: bold;
+	font-size: 12px;
+	color : #FFF;
+}
+.nav.user a {
+	color: #70c301;
+	text-decoration: none;
+}
+.nav.user a:hover {
+}
+.nav.menus a {
+	display: block;
+	width: 120px;
+	text-align: center;
+	font-size: 14px;
+	padding: 12px 0;
+	font-weight: bold;	/*padding:5px;*/
+	color: #FFF;
+	text-decoration: none;
+}
+.nav.menus a:hover {
+	background-color: #70c301;
+}
+.search.wrapper {
+	background: url(../image/search_column.jpg) no-repeat left top;
+	height: 64px;
+	border: #b6d0f4 solid 1px;
+}
+.search.input {
+	float: left;
+	margin: 17px 0px 0px 145px;
+	background: url(../image/search_input.gif) no-repeat left top;
+	height: 32px;
+	width: 336px;
+}
+.search.searchbtn {
+	float: left;
+	margin: 17px 0px 0px 0px;
+	height: 32px;
+	width: 94px;
+}
+.search.questionbtn {
+	float: right;
+	margin: 13px 10px 0px 0px;
+	height: 38px;
+	width: 133px;
+}
+.searchinput {
+	border: none;
+	background-color: transparent;
+	margin: 1px;
+	width: 322px;
+	color: #0077cf;
+	font-weight: bold;
+	padding: 6px;
+}
+.content.container {
+	float: left;
+	width: 740px;
+}
+.content.sidebar {
+	float: right;
+	width: 230px;
+}
+.sidebar.panel {
+	border: #b6d0f4 solid 1px;
+	clear: both;
+	margin: 0px 0px 10px 0px;
+}
+.icon {
+	background-image: url(../image/icons.png);
+	background-repeat: no-repeat;
+}
+.icon-ok {
+	background-position: left -64px;
+}
+.icon-questionbtn {
+	background-position: left -32px;
+}
+.icon-wand {
+	background-position: 10px -119px;
+}
+.icon-tag {
+	background-position: 10px -87px;
+}
+.icon-ask{
+	background-position: left -160px;
+}
+.sidebar.panel h1 {
+	color: #0077cf;
+	font-size: 12px;
+	line-height: 35px;
+	display: block;
+	padding: 0px 0px 0px 10px;
+	margin: 0px;
+	height: 35px;
+	background-color: #f2f5f9;
+	border-bottom: #b6d0f4 solid 1px;
+}
+.sidebar.panel h1:before {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	content: '';
+	margin-right: 5px;
+	vertical-align : text-bottom;
+}
+.panel.iconli, .panel.iconli li, .panel.tagli, .panel.tagli li, .tabpanel.tabs, .tabpanel.tabs li {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+.panel.iconli, .panel.tagli {
+	margin: 10px;
+}
+.panel.iconli li, .panel.tagli li {
+	height: 25px;
+}
+.panel.iconli li:before {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	content: '';
+	margin-right: 5px;
+	vertical-align : text-bottom;
+}
+
+.panel.body dfn {
+	width: 16px;
+	height: 16px;
+	background-color: #000;
+	float: left;
+}
+.panel.body bdi {
+	color: #8a8a8b;
+	margin-left: 10px;
+}
+
+
+.tabpanel{
+	margin: 0px;
+}
+
+.tabpanel.title{
+	float:left;
+	color: #0077cf;
+	font-size: 12px;	
+}
+
+.tabpanel.title:before {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	content: '';
+	margin-right: 5px;
+	vertical-align : text-bottom;
+}
+
+.tabpanel.tabs{
+	margin: 0px;
+	float:right;
+	border-bottom:	#b6d0f4 solid 1px;
+}
+
+.tabpanel.tabs li{
+	float: left;
+	margin-left:5px;
+	font-weight:bold;
+	margin-bottom: -1px;
+}
+
+.tabpanel.tabs a{
+	display:block;
+	padding: 8px 15px;
+	border:	#b6d0f4 solid 1px;
+}
+
+.tabpanel.tabs a:hover{
+	background-color:#b6d0f4;
+} 
+
+.tabpanel.container{
+	border:	#b6d0f4 solid 1px;
+}
