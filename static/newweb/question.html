@@ -7,6 +7,13 @@
 <link rel="stylesheet" type="text/css" href="css/theme-blue.css">
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script src="ueditor/ueditor.config.js"></script>
+<script src="ueditor/ueditor.all.min.js"></script>
+<link rel="stylesheet" type="text/css" href="ueditor/third-party/SyntaxHighlighter/styles/shCoreDefault.css">
+<script src="ueditor/third-party/SyntaxHighlighter/scripts/shCore.js"></script>
+<script type="text/javascript">SyntaxHighlighter.all()</script>
+<script src="ueditor/lang/zh-cn/zh-cn.js"></script>
+
 </head>
 <body>
 <div id="header" class="zdw-margin-bottom-10px">
@@ -57,7 +64,7 @@
             <label>问题补充
               <bdi>(选填)</bdi>
             </label>
-            <textarea id="question-body" rows="4" placeholder="" class="zdw-width100p"></textarea>
+            <script id="editor" type="text/plain" style="width:100%; height:250px; margin-bottom:10px;"></script>
           </fieldset>
           <button type="submit" class="btn btn-success">提交问题</button>
         </form>
@@ -77,4 +84,23 @@
   </div>
 </div>
 </body>
+<script type="text/javascript">
+var ue = UE.getEditor('editor');
+
+/*
+{
+	toolbars : [["source", "unlink","link","insertimage", "insertcode","bold","italic","underline",  "justifyleft","justifycenter","justifyright"]],
+	contextMenu:[],
+	autotypeset:{
+    pasteFilter : true
+    },
+    filterRules: {
+    axx: function(e){ 
+        return e.innerText || e.textContent; 
+    }
+}
+}
+*/
+
+</script>
 </html>
