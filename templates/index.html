@@ -1,181 +1,221 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
-    <meta charset="utf-8" />
-	<title>值得问-</title>
-	
-	<link rel="stylesheet" type="text/css"  href="/static/css/bootstrap.css">
-		<link rel="stylesheet" type="text/css"  href="/static/css/style.css">
-	<script type="text/javascript" src="/static/jquery.js"></script>
-	<script type="text/javascript" src="/static/bootstrap.js"></script>
-	<script>
-		$(document).ready(function(){
-			$('.pagination').find('li').click(function(){
-			    $(this).parent().find('li').removeClass('active');
-			    $(this).addClass('active');
-			});
-		});
-	</script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/theme-blue.css">
+<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div id="header">
-		<div class="top">
-			<div class="logo">
-				<img src="/static/images/logo.png">
-			</div>
-			<div class="plugins">plugins</div>
-		</div>
-		<div class="menu">
-			<div class="list">
-				<a><i class="home_icon"></i>首页</a>
-				<a>所有问题</a>
-				<a>标签</a>
-			</div>
-			<div class="account">您好，欢迎登录  值得问！[<a>登录</a>][<a>立即注册</a>]</div>
-		</div>
-	</div>
-	<div id="content">
-		<div class="search_area">
-			<span class="search_input">
-				<input type="text" name="keyword" autocomplete="off" />
-			</span>
-			<span class="search_btn"></span>
-			<span class="ask_btn"></span>
-		</div>
-		<div class="main">
-			<div class="center">
-				<div class="main_tags">
-					<span class="total_count"><i></i>共有3个问题</span>
-					<a>最新问题</a>
-					<a>最热问题</a>
-					<a>"0"回答问题</a>
-				</div>
-				<div class="details">
-					<div class="info">
-						<div class="number_info">
-							<div class="votion_number"><div>0</div>投票</div>
-							<div class="answer_number"><div>0</div>回复</div>
-							<div class="reading_number"><span>0</span>阅读</div>
-						</div>
-						<div class="question_info">
-							<div>
-								<div class="question_title"><a>为什么大部分运动员的身材并不好看？</a></div>
-								<div class="question_detail">大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看</div>
-							</div>
-							<div>
-								<div class="question_tags">
-									<div class="tag_detail">[<a>运动员</a>,&nbsp;&nbsp;<a>身材</a>,&nbsp;&nbsp;<a>脂肪</a>]</div>
-									<div class="time">1分钟前</div>
-								</div>
-								<div class="question_user">
-									
-									<div class="user_info">啸月苍狼</div>
-									<div class="user_img">
-										<img src="/static/images/default.jpg" width="32px" height="32px">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="info">
-						<div class="number_info">
-							<div class="votion_number"><div>0</div>投票</div>
-							<div class="answer_number"><div>0</div>回复</div>
-							<div class="reading_number"><span>0</span>阅读</div>
-						</div>
-						<div class="question_info">
-							<div>
-								<div class="question_title"><a>为什么大部分运动员的身材并不好看？</a></div>
-								<div class="question_detail">大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看</div>
-							</div>
-							<div>
-								<div class="question_tags">
-									<div class="tag_detail">[<a>运动员</a>,&nbsp;&nbsp;<a>身材</a>,&nbsp;&nbsp;<a>脂肪</a>]</div>
-									<div class="time">1分钟前</div>
-								</div>
-								<div class="question_user">
-									
-									<div class="user_info">啸月苍狼</div>
-									<div class="user_img">
-										<img src="/static/images/default.jpg" width="32px" height="32px">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="info">
-						<div class="number_info">
-							<div class="votion_number"><div>0</div>投票</div>
-							<div class="answer_number"><div>0</div>回复</div>
-							<div class="reading_number"><span>0</span>阅读</div>
-						</div>
-						<div class="question_info">
-							<div>
-								<div class="question_title"><a>为什么大部分运动员的身材并不好看？</a></div>
-								<div class="question_detail">大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看大部分运动员的身材没有男模或者其他模特的身材好看</div>
-							</div>
-							<div>
-								<div class="question_tags">
-									<div class="tag_detail">[<a>运动员</a>,&nbsp;&nbsp;<a>身材</a>,&nbsp;&nbsp;<a>脂肪</a>]</div>
-									<div class="time">1分钟前</div>
-								</div>
-								<div class="question_user">
-									
-									<div class="user_info">啸月苍狼</div>
-									<div class="user_img">
-										<img src="/static/images/default.jpg" width="32px" height="32px">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="pagination">
-						<ul>
-						    <li><a>上一页</a></li>
-						    <li><a>1</a></li>
-						    <li><a>2</a></li>
-						    <li><a>3</a></li>
-						    <li><a>4</a></li>
-						    <li><a>5</a></li>
-						    <li><a>下一页</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="right">
-				<div class="question_status">
-					<div class="header">
-						<i class="question_icon"></i>问题状态
-					</div>
-					<div class="question_status_details">
-						<div class="finish">
-							<i class="question_finish_icon"></i>
-							已回答：12345
-						</div>
-						<div class="unfinish">
-							<i class="question_unfinish_icon"></i>
-							未回答：123456
-						</div>
-					</div>
-				</div>
-				<div class="tags_count">
-					<div class="header">
-						<i class="tags_icon"></i>相关标签
-					</div>
-					<div class="tags_count_details">
-						<div><span class="name">C++</span>&nbsp;&nbsp;&nbsp;<span class="count">(116)</span></div>
-						<div><span class="name">C#</span>&nbsp;&nbsp;&nbsp;<span class="count">(12)</span></div>
-						
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="footer">
-		<div class="footer_line"></div>
-		<div class="footer_info">
-			<a>关于我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a>版权所有</a>&nbsp;&nbsp;|&nbsp;&nbsp;版本：V1.0
-		</div>
-	</div>
+<div id="header" class="zdw-margin-bottom-10px">
+  <div class="container">
+    <div class="logo">放logo</div>
+    <div class="tianqi">放天气</div>
+  </div>
+  <!--使用bootstrap的导航条-->
+  <div class="navbar navbar-static-top">
+    <div class="navbar-inner zdw-nav-bg">
+      <div class="container">
+        <ul class="nav zdw-nav">
+          <li class="active"><a href="#"><i class="zdw-icon-home"></i>首页</a></li>
+          <li><a href="#">所有问题</a></li>
+          <li><a href="#">标签</a></li>
+          <li><a href="#">我的收藏</a></li>
+          <li><a href="#">用户中心</a></li>
+        </ul>
+        <div class="zdw-nav-user-info"> 欢迎来到值得问&nbsp;&nbsp;[<a href="#">请登录</a>]&nbsp;&nbsp;[<a href="#">免费注册</a>] </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--搜索-->
+<div id="search" class="zdw-margin-bottom-10px">
+  <div class="container zdw-search-bg">
+    <div class="search input">
+      <input name="q" type="text" class="zdw-search-input"/>
+    </div>
+    <div class="zdw-search-searchbtn"><img src="/static/image/search_btn.gif" width="94" height="32" alt="搜索" /></div>
+    <div class="zdw-search-questionbtn"><img src="/static/image/question_btn.gif" width="133" height="38" alt="要我提问" /></div>
+  </div>
+</div>
+<div class="container zdw-margin-bottom-10px"> 
+  <!--使用bootstrap的布局-->
+  <div class="container-fluid zdw-padding-0px">
+    <div class="row-fluid">
+      <div class="span9"> 
+        <!--这里是内容页 -->
+        <dl class="zdw-tabpanel">
+          <dt>
+            <h1 class="zdw-icon zdw-icon-ask">共有54744114未回答</h1>
+            <ul class="zdw-tabpanel-tabs">
+              <li class="active"> <a href="#">未回答的问题</a> </li>
+              <li><a href="#">已回答的问题</a></li>
+            </ul>
+          </dt>
+          <dd>
+            <ul class="zdw-asklist-ul">
+              <!--这里是问题列表开始-->
+              <li>
+                <div class="row-fluid">
+                  <ul class="span2 zdw-ask-data">
+                    <li class="zdw-ask-data-bgcolor zdw-text-color-70c301">0<br/>
+                      投票</li>
+                    <li class="zdw-ask-data-bgcolor zdw-text-color-0077cf">0<br/>
+                      回答</li>
+                    <li class="zdw-ask-data-bottom">0&nbsp;阅读</li>
+                  </ul>
+                  <div class="span10"> <a href="#" class="zdw-ask-title">为什么大部分运动员的身材并不好看？</a>
+                    <p>大部分运动员身材都没有男模或者一部分明星那么好看，他们没有大块的胸肌，腰部粗壮的像水桶，看不出人鱼
+                      线，没有精致的8块腹肌，甚至很多运动员还满肚子脂肪。这是为什么？本文告诉你。</p>
+                    <div class="row-fluid">
+                      <div class="span9 zdw-ask-tag">[<a href="#">运动员</a>, <a href="#">身材</a>, <a href="#">脂肪</a>, <a href="#">运动</a>, <a href="#">腹肌</a>]</div>
+                      <div class="span3"> 提问&nbsp;&nbsp;前1天
+                        <div class="media"> <a class="pull-left" href="#"> <img class="media-object" data-src="holder.js/32x32" alt="32x32" style="width: 32px; height: 32px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABN0lEQVR4Xu2YQQ6EIAxFdeXFODZnYu9qJk5C0sGiUiAx8FyKVPr76VPWEMJnmfhaEQAHsAXoARP3wIUmCAWgABSAAlBgYgXAIBgEg2AQDE4MAX6GwCAYBINgEAyCwYkVAIO1GPTe//nHOXfyU3xGG9PM1yNmzuRVDpCJ5ZKUyTwRoEfMqx3eTIBcJbdtW/Z9/w2XCtAqZncB5Atkkkc1NQFileVYFCi1fypcLqa1jzd1QM6+2va4EycKWRLTIkI3AY7FPKmmVmF5LxXvLmapCF0FiItp5QCZXClZulBAq/IVBtN9rvUAa8zSysfnqxxgfemb5iFA7Zfgm6ppWQsOwAEciXEkxpGYpXuOMgcKQAEoAAWgwCgd3ZIHFIACUAAKQAFL9xxlDhSAAlAACkCBUTq6JY/pKfAFwO6XkLwNdToAAAAASUVORK5CYII="> </a>
+                          <div class="media-body">
+                            <h4 class="media-heading"><a href="#">这里是昵称</a></h4>
+                            4565:14 </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <!--这里是问题列表结束-->
+              
+              <li>
+                <div class="row-fluid">
+                  <ul class="span2 zdw-ask-data">
+                    <li class="zdw-ask-data-bgcolor zdw-text-color-70c301">0<br/>
+                      投票</li>
+                    <li class="zdw-ask-data-bgcolor zdw-text-color-0077cf">0<br/>
+                      回答</li>
+                    <li class="zdw-ask-data-bottom">0&nbsp;阅读</li>
+                  </ul>
+                  <div class="span10"> <a href="#" class="zdw-ask-title">为什么大部分运动员的身材并不好看？</a>
+                    <p>大部分运动员身材都没有男模或者一部分明星那么好看，他们没有大块的胸肌，腰部粗壮的像水桶，看不出人鱼
+                      线，没有精致的8块腹肌，甚至很多运动员还满肚子脂肪。这是为什么？本文告诉你。</p>
+                    <div class="row-fluid">
+                      <div class="span9 zdw-ask-tag">[<a href="#">运动员</a>, <a href="#">身材</a>, <a href="#">脂肪</a>, <a href="#">运动</a>, <a href="#">腹肌</a>]</div>
+                      <div class="span3"> 提问&nbsp;&nbsp;前1天
+                        <div class="media"> <a class="pull-left" href="#"> <img class="media-object" data-src="holder.js/32x32" alt="32x32" style="width: 32px; height: 32px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABN0lEQVR4Xu2YQQ6EIAxFdeXFODZnYu9qJk5C0sGiUiAx8FyKVPr76VPWEMJnmfhaEQAHsAXoARP3wIUmCAWgABSAAlBgYgXAIBgEg2AQDE4MAX6GwCAYBINgEAyCwYkVAIO1GPTe//nHOXfyU3xGG9PM1yNmzuRVDpCJ5ZKUyTwRoEfMqx3eTIBcJbdtW/Z9/w2XCtAqZncB5Atkkkc1NQFileVYFCi1fypcLqa1jzd1QM6+2va4EycKWRLTIkI3AY7FPKmmVmF5LxXvLmapCF0FiItp5QCZXClZulBAq/IVBtN9rvUAa8zSysfnqxxgfemb5iFA7Zfgm6ppWQsOwAEciXEkxpGYpXuOMgcKQAEoAAWgwCgd3ZIHFIACUAAKQAFL9xxlDhSAAlAACkCBUTq6JY/pKfAFwO6XkLwNdToAAAAASUVORK5CYII="> </a>
+                          <div class="media-body">
+                            <h4 class="media-heading"><a href="#">这里是昵称</a></h4>
+                            4565:14 </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="row-fluid">
+                  <ul class="span2 zdw-ask-data">
+                    <li class="zdw-ask-data-bgcolor zdw-text-color-70c301">0<br/>
+                      投票</li>
+                    <li class="zdw-ask-data-bgcolor zdw-text-color-0077cf">0<br/>
+                      回答</li>
+                    <li class="zdw-ask-data-bottom">0&nbsp;阅读</li>
+                  </ul>
+                  <div class="span10"> <a href="#" class="zdw-ask-title">为什么大部分运动员的身材并不好看？</a>
+                    <p>大部分运动员身材都没有男模或者一部分明星那么好看，他们没有大块的胸肌，腰部粗壮的像水桶，看不出人鱼
+                      线，没有精致的8块腹肌，甚至很多运动员还满肚子脂肪。这是为什么？本文告诉你。</p>
+                    <div class="row-fluid">
+                      <div class="span9 zdw-ask-tag">[<a href="#">运动员</a>, <a href="#">身材</a>, <a href="#">脂肪</a>, <a href="#">运动</a>, <a href="#">腹肌</a>]</div>
+                      <div class="span3"> 提问&nbsp;&nbsp;前1天
+                        <div class="media"> <a class="pull-left" href="#"> <img class="media-object" data-src="holder.js/32x32" alt="32x32" style="width: 32px; height: 32px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABN0lEQVR4Xu2YQQ6EIAxFdeXFODZnYu9qJk5C0sGiUiAx8FyKVPr76VPWEMJnmfhaEQAHsAXoARP3wIUmCAWgABSAAlBgYgXAIBgEg2AQDE4MAX6GwCAYBINgEAyCwYkVAIO1GPTe//nHOXfyU3xGG9PM1yNmzuRVDpCJ5ZKUyTwRoEfMqx3eTIBcJbdtW/Z9/w2XCtAqZncB5Atkkkc1NQFileVYFCi1fypcLqa1jzd1QM6+2va4EycKWRLTIkI3AY7FPKmmVmF5LxXvLmapCF0FiItp5QCZXClZulBAq/IVBtN9rvUAa8zSysfnqxxgfemb5iFA7Zfgm6ppWQsOwAEciXEkxpGYpXuOMgcKQAEoAAWgwCgd3ZIHFIACUAAKQAFL9xxlDhSAAlAACkCBUTq6JY/pKfAFwO6XkLwNdToAAAAASUVORK5CYII="> </a>
+                          <div class="media-body">
+                            <h4 class="media-heading"><a href="#">这里是昵称</a></h4>
+                            4565:14 </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="row-fluid">
+                  <ul class="span2 zdw-ask-data">
+                    <li class="zdw-ask-data-bgcolor zdw-text-color-70c301">0<br/>
+                      投票</li>
+                    <li class="zdw-ask-data-bgcolor zdw-text-color-0077cf">0<br/>
+                      回答</li>
+                    <li class="zdw-ask-data-bottom">0&nbsp;阅读</li>
+                  </ul>
+                  <div class="span10"> <a href="#" class="zdw-ask-title">为什么大部分运动员的身材并不好看？</a>
+                    <p>大部分运动员身材都没有男模或者一部分明星那么好看，他们没有大块的胸肌，腰部粗壮的像水桶，看不出人鱼
+                      线，没有精致的8块腹肌，甚至很多运动员还满肚子脂肪。这是为什么？本文告诉你。</p>
+                    <div class="row-fluid">
+                      <div class="span9 zdw-ask-tag">[<a href="#">运动员</a>, <a href="#">身材</a>, <a href="#">脂肪</a>, <a href="#">运动</a>, <a href="#">腹肌</a>]</div>
+                      <div class="span3"> 提问&nbsp;&nbsp;前1天
+                        <div class="media"> <a class="pull-left" href="#"> <img class="media-object" data-src="holder.js/32x32" alt="32x32" style="width: 32px; height: 32px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABN0lEQVR4Xu2YQQ6EIAxFdeXFODZnYu9qJk5C0sGiUiAx8FyKVPr76VPWEMJnmfhaEQAHsAXoARP3wIUmCAWgABSAAlBgYgXAIBgEg2AQDE4MAX6GwCAYBINgEAyCwYkVAIO1GPTe//nHOXfyU3xGG9PM1yNmzuRVDpCJ5ZKUyTwRoEfMqx3eTIBcJbdtW/Z9/w2XCtAqZncB5Atkkkc1NQFileVYFCi1fypcLqa1jzd1QM6+2va4EycKWRLTIkI3AY7FPKmmVmF5LxXvLmapCF0FiItp5QCZXClZulBAq/IVBtN9rvUAa8zSysfnqxxgfemb5iFA7Zfgm6ppWQsOwAEciXEkxpGYpXuOMgcKQAEoAAWgwCgd3ZIHFIACUAAKQAFL9xxlDhSAAlAACkCBUTq6JY/pKfAFwO6XkLwNdToAAAAASUVORK5CYII="> </a>
+                          <div class="media-body">
+                            <h4 class="media-heading"><a href="#">这里是昵称</a></h4>
+                            4565:14 </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            
+          </dd>
+        </dl>
+      </div>
+      <div class="span3"> 
+        <!--这里是侧边栏-->
+        <dl class="zdw-panel zdw-width100p">
+          <dt>
+            <h1 class="zdw-icon zdw-icon-wand">值得问状态</h1>
+          </dt>
+          <dd>
+            <ul class="zdw-icon-ul">
+              <li class="zdw-icon zdw-icon-ok zdw-text-color-438a20">已回答：585231</li>
+              <li class="zdw-icon zdw-icon-questionbtn zdw-text-color-438a20">未回答：54744114</li>
+            </ul>
+          </dd>
+        </dl>
+        <dl class="zdw-panel zdw-width100p">
+          <dt>
+            <h1 class="zdw-icon zdw-icon-tag">相关标签</h1>
+          </dt>
+          <dd>
+            <ul class="zdw-taglist-ul">
+              <li><a href="#">C#</a>
+                <bdi>(58711)</bdi>
+              </li>
+              <li><a href="#">java</a>
+                <bdi>(6787)</bdi>
+              </li>
+              <li><a href="#">php</a>
+                <bdi>(43)</bdi>
+              </li>
+              <li><a href="#">asp</a>
+                <bdi>(43245667)</bdi>
+              </li>
+              <li><a href="#">asp.net</a>
+                <bdi>(2543)</bdi>
+              </li>
+              <li><a href="#">photoshop</a>
+                <bdi>(58711)</bdi>
+              </li>
+            </ul>
+          </dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="footer">
+  <div class="container">
+    <ul class="breadcrumb">
+      <li><a href="#">关于我们</a> <span class="divider">|</span></li>
+      <li>版权所有：值得问 <span class="divider">|</span></li>
+      <li class="active">版本：v 1.0</li>
+    </ul>
+  </div>
+</div>
 </body>
 </html>
