@@ -1,0 +1,102 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre, 
+form,fieldset,input,textarea,p,blockquote,th,td { 
+	padding: 0; 
+	margin: 0; 
+} 
+table 
+{ 
+	border-collapse: collapse; 
+	border-spacing: 0; 
+} 
+fieldset,img 
+{ 
+	border: 0; 
+} 
+address,caption,cite,code,dfn,em,strong,th,var 
+{ 
+	font-weight: normal; 
+	font-style: normal; 
+} 
+ol,ul 
+{ 
+	list-style: none; 
+} 
+caption,th 
+{ 
+	text-align: left; 
+} 
+h1,h2,h3,h4,h5,h6 
+{ 
+	font-weight: normal; 
+	font-size: 100%; 
+} 
+q:before,q:after 
+{ 
+	content:''; 
+} 
+abbr,acronym 
+{ 
+	border: 0; 
+}
+body {font-family:Verdana, Arial, '宋体'; font-size:12px;line-height: 1.5}
+a {text-decoration: none;}
+a:hover {text-decoration: none;}
+/* common styles */
+.color-grey {color: #CFCFCF;}
+.color-white {color: #FFF;}
+.color-blue {color: #4B76D8;}
+.color-green {color: #6FC316;}
+/* icons */
+.icon {display:inline-block;vertical-align: middle;width:20px;height:20px;background-repeat: no-repeat; background-image: url(/static/images/tools.png)}
+.icon-status {background-position: 0px 0px;}
+.icon-tags {background-position: 0px 0px;}
+.icon_home {background-position: 0px 1px;}
+.icon_myask {background-position: 0px -30px;}
+.icon-right {background-position: 0px 0px;}
+.icon-ask {background-position: 0px 0px;}
+.icon-msg {background-position: 0px 0px;}
+/* box */
+.box {position: relative; border: 1px solid #B9D3F6;}
+.box .head {border-bottom:1px solid #B9D3F6;background-color: #F3F6FA;height: 30px;line-height: 30px;text-indent: 10px;}
+.box .body {padding: 10px 0;}
+.box ul {margin-left:20px;}
+.box li {display: block;}
+.box .status-list{}
+.box .tag-list {}
+.mg20 {margin: 20px;}
+.mt10{margin-top: 10px;}
+header {height: 50px;}
+nav {width: 100%;height: 45px;background-color: #4e7add;}
+nav .m_list{height:43px;list-style: none;position: relative;top:2px;}
+nav .m_list li{display:block;float:left;width: 117px;height: 43px;text-align: center;line-height: 43px;}
+nav .m_list li a {display: block;color: #fff;font-size: 1.5em;width: 100%;height: 43px;border-radius: 3px 3px 0 0;}
+nav .m_list li a:hover {background-color: #70c301;}
+nav .m_list .active a{background-color: #70c301;}
+nav .m_list .account {clear: left;position: absolute;top:0;right:0;}
+.quick-ask{} /* quick ask navigate */
+.questions {position: relative;margin: 0 10px;}
+.questions .invole{position: absolute;top:0px;left:0px;line-height: 34px;}
+.questions .tabs {list-style: none;font-weight: bold;height: 34px;}
+.questions .tabs li {height: 34px;line-height: 34px;float:right;margin-left: 5px;border: 1px solid #B9D3F6;border-bottom: 0;}
+.questions .tabs .active a {background-color: #BAD3F6;}
+.questions .tabs li a {display: block;padding: 0 5px;font-size: .8em;height: 34px;color: #000;}
+.questions .tabs li a:hover {background-color: #BAD3F6;}
+.questions .contents {border: 1px solid #B9D3F6;}
+.questions .contents .question{margin: 20px;padding-bottom:20px;border-bottom: 1px solid #B9D3F6;position: relative;}
+.questions .contents .question .vote{background-color: #F0F0F1;width: 72px;position: absolute;left:0; top: 0;}
+.questions .contents .question .vote p {text-align: center;}
+.questions .contents .question .vote p strong{font-size: 20px;}
+.questions .contents .question .vote .vote_num{color: #0B69FC;}
+.questions .contents .question .vote .reply_num{color: #6FC316;}
+.questions .contents .question .vote .read_num{background-color: #FFF;color: #9E9E9E;margin-top: 5px;}
+.questions .contents .question .vote .arrow{position: absolute;width: 8px;height: 14px;top: 10px;left: 72px;background: url(/static/images/sj_bg.gif) no-repeat;}
+.questions .contents .question .description{margin-left: 85px;}
+.questions .contents .question .description .title{font-weight:bold;font-size: 1.5em;color: #0072C9;}
+.questions .contents .question .description .details{margin: 10px 0;text-indent: 2em;}
+.questions .contents .question .description .tags {color: #0077cf;}
+.questions .contents .question .description .tags a{color: #0077cf;}
+.questions .contents .question .description .tags a:hover{color: #70c301;}
+.questions .contents .question .description .user{float: right;white-space: nowrap;width: 100px;}
+.questions .contents .question .description .user .ask_info {color: #9E9E9E;}
+.questions .contents .question .description .user .pic {float:left;width:30px;height:30px;border:1px solid #eee;margin-right: 5px;}
+.info_list {}
