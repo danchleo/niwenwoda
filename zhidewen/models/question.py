@@ -8,10 +8,10 @@ from zhidewen.models.tag import Tag
 
 class QuestionQuerySet(base.QuerySet):
 
-    def fresh(self):
+    def newest(self):
         return self.order_by('-last_refreshed_at')
 
-    def hot(self):
+    def hottest(self):
         return self.order_by('-ranking_weight')
 
     def recent(self):

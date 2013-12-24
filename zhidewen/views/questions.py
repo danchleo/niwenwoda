@@ -23,11 +23,11 @@ def render_list(request, questions):
 
 
 def newest(request):
-    return render_list(request, Question.existed.fresh())
+    return render_list(request, Question.existed.newest())
 
 
 def hottest(request):
-    return render_list(request, Question.existed.hot())
+    return render_list(request, Question.existed.hottest())
 
 
 def unanswered(request):
