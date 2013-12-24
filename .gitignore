@@ -39,3 +39,5 @@ nosetests.xml
 *.sqlite3-journal
 
 .idea
+.vagrant
+Vagrantfile
