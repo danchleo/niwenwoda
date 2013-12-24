@@ -34,9 +34,8 @@
 
     <p>投票 {{ q.score }} 回答 {{ q.answer_count }} 浏览 {{ q.view_count }}</p>
 
-    <p>作者 <a href="{% url 'user' q.author.username %}">{{ q.author.username }}</a></p>
-    <p>头像 </p>
-    <p>时间 {{ q.created_at }}</p>
+    <p><img src="{{q.author.avatar|default:''}}"><br/>
+    <a href="{% url 'user' q.author.username %}">{{ q.author.username }}</a> {{ q.created_at }}</p>
 
 
     <p>标签

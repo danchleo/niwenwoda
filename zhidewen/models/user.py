@@ -13,6 +13,14 @@ class User(AbstractUser):
         app_label = 'zhidewen'
         db_table = 'zhidewen_users'
 
+    @property
+    def avatar(self):
+        import hashlib
+        import urllib
+        return "http://www.gravatar.com/avatar/"\
+               + hashlib.md5(self.email.lower()).hexdigest()\
+               + "?" + urllib.urlencode({'d':'identicon', 's':'32'})
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name='profile', verbose_name=u'用户')
@@ -44,8 +52,9 @@ def create_user_profile(sender, instance, created, **kwargs):
 
         # 刚注册的用户默认的用户组
         # 系统初始用户组：admin、common_user、newbie
-        if Group.objects.filter(name=u'newbie').exists() and instance.group is None:
-            instance.groups.add(Group.objects.filter(name=u'newbie')[0])
+        newbie = Group.objects.filter(name=u'newbie')
+        if newbie.exists() and not instance.groups.exists():
+            instance.groups.add(newbie[0])
 
         related_profile.save()
 
