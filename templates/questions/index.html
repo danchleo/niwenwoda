@@ -1,3 +1,4 @@
+{% load timeago %}
 
 <p>
     <a href="{% url 'home' %}">问答</a>
@@ -35,7 +36,7 @@
     <p>投票 {{ q.score }} 回答 {{ q.answer_count }} 浏览 {{ q.view_count }}</p>
 
     <p><img src="{{q.author.avatar|default:''}}"><br/>
-    <a href="{% url 'user' q.author.username %}">{{ q.author.username }}</a> {{ q.created_at }}</p>
+    <a href="{% url 'user' q.author.username %}">{{ q.author.username }}</a> {{ q.created_at|timeago }}</p>
 
 
     <p>标签
