@@ -1,0 +1,12 @@
+<dl class="zdw-tabpanel">
+  <dt>
+    <h1 class="zdw-icon zdw-icon-ask">这里是标题</h1>
+    <ul class="zdw-tabpanel-tabs">
+      <li class="active"> <a href="#">这里是TAB1</a> </li>
+      <li><a href="#">这里是TAB2</a></li>
+    </ul>
+  </dt>
+  <dd>
+    这里是内容
+  </dd>
+</dl>

@@ -90,6 +90,13 @@ a:hover {
 .zdw-icon-ask:before {
 	background-position: left -160px;
 }
+.zdw-icon-userinfo:before{
+	background-position:left -192px;
+}
+.zdw-icon-comments:before{
+	background-position:left -224px;
+}
+
 .zdw-icon-home {
 	display:inline-block;
 	width:16px;
