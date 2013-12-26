@@ -1,0 +1,16 @@
+
+<ul>
+    {% if page.has_previous %}
+        <li><a href="?page={{ page.previous_page_number }}">上一页</a></li>
+    {% endif %}
+
+    {% for url, n in page_range %}
+        <li {% if n == page.number  %}class="active"{% endif %}>
+            <a href="{{ url }}">{{ n }}</a>
+        </li>
+    {% endfor %}
+
+    {% if page.has_next %}
+        <li><a href="?page={{ page.next_page_number }}">下一页</a></li>
+    {% endif %}
+</ul>

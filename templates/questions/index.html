@@ -1,3 +1,5 @@
+{% load timeago bootstrap_pagination %}
+
 
 <p>
     <a href="{% url 'home' %}">问答</a>
@@ -35,7 +37,7 @@
     <p>投票 {{ q.score }} 回答 {{ q.answer_count }} 浏览 {{ q.view_count }}</p>
 
     <p><img src="{{q.author.avatar|default:''}}"><br/>
-    <a href="{% url 'user' q.author.username %}">{{ q.author.username }}</a> {{ q.created_at }}</p>
+    <a href="{% url 'user' q.author.username %}">{{ q.author.username }}</a> {{ q.created_at|timeago }}</p>
 
 
     <p>标签
@@ -48,19 +50,5 @@
 {% endfor %}
 
 
-{% if page.has_previous %}
-    <a href="?page={{ page.previous_page_number }}">上一页</a>
-{% endif %}
 
-{% for n in page.paginator.page_range %}
-    {% if n == page.number  %}
-        <span>{{ n }}</span>
-    {% else %}
-        <a href="?page={{ n }}">{{ n }}</a>
-    {% endif %}
-
-{% endfor %}
-
-{% if page.has_next %}
-    <a href="?page={{ page.next_page_number }}">下一页</a>
-{% endif %}
+{% bootstrap_paginate page %}
