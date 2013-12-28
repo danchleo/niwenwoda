@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}提问{% endblock %}
+
+{% block head %}
+    <script src="{{ STATIC_URL }}ueditor/ueditor.config.js"></script>
+    <script src="{{ STATIC_URL }}ueditor/ueditor.all.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}ueditor/third-party/SyntaxHighlighter/styles/shCoreDefault.css">
+    <script src="{{ STATIC_URL }}ueditor/third-party/SyntaxHighlighter/scripts/shCore.js"></script>
+    <script type="text/javascript">SyntaxHighlighter.all()</script>
+    <script src="{{ STATIC_URL }}ueditor/lang/zh-cn/zh-cn.js"></script>
+{% endblock %}
+
+
+
+{% block content-body %}
+<form class="zdw-form-question" action="{% url 'ask'  %}" method="POST">
+    {% csrf_token %}
+    <fieldset>
+        <legend>我要提问</legend>
+        <label class="zdw-icon zdw-icon-ask" for="question-title">一句话描述您的疑问</label>
+        <textarea id="question-title" rows="2" placeholder="请在这里概述您的问题" class="zdw-width100p" name="title"></textarea>
+        <label class="zdw-icon zdw-icon-tag" for="question-tag">添加标签</label>
+        <input id="question-tag" type="text" placeholder="请在这里输入标签" class="zdw-width100p" name="tag_names"></input>
+        <span class="help-block">请使用空格分隔多个标签</span>
+        <label>问题补充
+            <bdi>(选填)</bdi>
+        </label>
+        <script id="editor" type="text/plain" style="width:100%; height:250px; margin-bottom:10px;"></script>
+    </fieldset>
+    <button type="submit" class="btn btn-success">提交问题</button>
+</form>
+
+{% endblock %}
+
+{% block panel %}{% endblock %}
+
+
+
+{% block js %}
+    <script type="text/javascript">
+        var ue = UE.getEditor('editor');
+
+        /*
+         {
+         toolbars : [["source", "unlink","link","insertimage", "insertcode","bold","italic","underline",  "justifyleft","justifycenter","justifyright"]],
+         contextMenu:[],
+         autotypeset:{
+         pasteFilter : true
+         },
+         filterRules: {
+         axx: function(e){
+         return e.innerText || e.textContent;
+         }
+         }
+         }
+         */
+
+    </script>
+{% endblock %}
+

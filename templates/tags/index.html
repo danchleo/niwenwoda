@@ -1,4 +1,19 @@
+{% extends 'base.html' %}
 
-{% for t in tags %}
-   <p><a href="{% url 'tag' t.name %}">{{ t.name }}({{ t.used_count }})</a></p>
-{% endfor %}
+{% block container %}
+<div class="container zdw-margin-bottom-10px">
+    <div class="zdw-border zdw-padding-5">
+        <dl class="zdw-tag-panel pull-left">
+            {% for t in tags %}
+            <dt>
+            <h1><a href="{% url 'tag' t.name %}">{{ t.name }}</a>
+                <bdi>({{ t.used_count }})</bdi>
+            </h1>
+            </dt>
+            <dd>{{ t.description }}</dd>
+            {% endfor %}
+        </dl>
+        <div class="clearfix"></div>
+    </div>
+</div>
+{% endblock %}

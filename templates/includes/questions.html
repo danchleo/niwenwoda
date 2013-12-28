@@ -1,0 +1,33 @@
+{% load timeago %}
+
+{% for q in questions %}
+    <li>
+        <div class="row-fluid">
+            <ul class="span2 zdw-ask-data">
+                <li class="zdw-ask-data-bgcolor zdw-text-color-70c301">{{ q.score }}<br/>
+                    投票</li>
+                <li class="zdw-ask-data-bgcolor zdw-text-color-0077cf">{{ q.answer_count }}<br/>
+                    回答</li>
+                <li class="zdw-ask-data-bottom">{{ q.view_count }}&nbsp;阅读</li>
+            </ul>
+            <div class="span10"> <a href="{% url 'question' q.id %}" class="zdw-ask-title">{{ q.title }}</a>
+                <p>{{ q.summary }}</p>
+                <div class="row-fluid">
+
+                    <div class="span9 zdw-ask-tag">[{% for tag in q.tags.all %}<a href="{% url 'tag' tag.name %}">{{ tag.name }}</a>, {% endfor %}]</div>
+
+                    <div class="span3">{{ q.created_at|timeago }}
+                        <div class="media">
+                            <a class="pull-left" href="{% url 'user' q.author.username %}"><img class="media-object" src="{{q.author.avatar|default:''}}" ></a>
+                            <div class="media-body">
+                                <h4 class="media-heading"><a href="{% url 'user' q.author.username %}">{{ q.author.username }}</a></h4>
+                                {{ q.author.question_count }}:{{ q.author.answer_count }}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </li>
+{% endfor %}

@@ -19,7 +19,7 @@ def render_list(request, questions):
         'answered_count': questions.answered().count(),
         'unanswered_count': questions.unanswered().count(),
     }
-    return render(request, 'questions/index.html', context)
+    return render(request, 'questions/list.html', context)
 
 
 def newest(request):
@@ -42,7 +42,7 @@ def ask(request):
         if form.is_valid():
             question = Question.objects.create(request.user, **form.cleaned_data)
             return redirect(reverse('question', args=(question.id, )))
-    return render(request, 'questions/new.html', {'form': form})
+    return render(request, 'questions/ask.html', {'form': form})
 
 
 def show(request, question_id):

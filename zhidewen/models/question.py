@@ -69,6 +69,10 @@ class Question(base.ContentModel):
     def author(self):
         return self.created_by
 
+    @property
+    def summary(self):
+        return self.content
+
     def count_ranking(self):
         return sum([self.answer_count*5,
                     self.up_count*3,
