@@ -30,11 +30,15 @@ class TestTimeAgo(TestCase):
 
 class TestBootstrapPagination(TestCase):
 
-    def assertPagination(self, expect, cur_page, last_page, length=5):
-        self.assertEqual(expect, PaginationNode.get_page_range(cur_page, last_page, length))
+    def assertPagination(self, expect, current_page, page_count, range_length=5, end_length=1):
+        actual = PaginationNode.get_page_range(current_page, page_count, range_length, end_length)
+        self.assertEqual(expect, actual)
 
-    def assertPaginationLength4(self, expect, cur_page, last_page):
-        self.assertPagination(expect, cur_page, last_page, length=4)
+    def assertPaginationLength4(self, expect, current_page, page_count):
+        self.assertPagination(expect, current_page, page_count, range_length=4)
+
+    def assertEndLength(self, expect, current_page, page_count):
+        self.assertPagination(expect, current_page, page_count, end_length=2)
 
     def test_pagination(self):
         self.assertPagination([1, 2, 3], 1, 3)
@@ -48,6 +52,13 @@ class TestBootstrapPagination(TestCase):
         self.assertPagination([1, '...', 3, 4, 5, 6, 7], 7, 7)
 
         self.assertPagination([1, '...', 3, 4, 5, 6, 7, '...', 9], 5, 9)
+
+    def test_pagination_end_length(self):
+        self.assertEndLength([1, 2, 3, 4, 5, 6, 7], 1, 7)
+        self.assertEndLength([1, 2, 3, 4, 5, '...', 7, 8], 1, 8)
+        self.assertEndLength([1, 2, '...', 4, 5, 6, 7, 8], 8, 8)
+        self.assertEndLength([1, 2, 3, 4, 5, 6, 7, 8, 9], 5, 9)
+        self.assertEndLength([1, 2, '...', 4, 5, 6, 7, 8, '...', 10, 11], 6, 11)
 
     def test_pagination_length_4(self):
         self.assertPaginationLength4([1, 2, 3], 1, 3)

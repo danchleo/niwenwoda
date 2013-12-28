@@ -29,44 +29,23 @@ class PaginationNode(template.Node):
         return get_template('_pagination.html').render(context)
 
     @staticmethod
-    def get_page_range(cur_page, last_page, length=5):
+    def get_page_range(current_page, page_count, range_length=5, end_length=1):
         """
         分页样式标签
             至少显示 length 个分页，且始终显示第一页和最后一页
             使用方式:
                 {% bootstrap_paginate page %}
         """
-        dist = length - 1
-        left_dist = dist/2
-        if last_page <= 1 + dist:
-            return range(1, last_page + 1)
 
-        page_range = []
+        range_space = range_length - 1
 
-        if cur_page <= 1 + left_dist:
-            start_page = 1
-        elif cur_page >= last_page - (dist - left_dist):
-            start_page = last_page - dist
-        else:
-            start_page = cur_page - left_dist
+        min_range = max(min(current_page - range_space/2, page_count - range_space), 1)
+        max_range = min(min_range + range_space, page_count)
 
-        end_page = start_page + dist
+        head_range = range(1, 1 + end_length) + [MORE_PAGE_SYMBOL]
+        tail_range = [MORE_PAGE_SYMBOL] + range(page_count - end_length + 1, page_count + 1)
 
-        if start_page > 1:
-            page_range.append(1)
-
-            if start_page > 2:
-                page_range.append(MORE_PAGE_SYMBOL)
-
-        page_range.extend(range(start_page, end_page + 1))
-
-        if end_page < last_page - 1:
-            page_range.append(MORE_PAGE_SYMBOL)
-
-        if end_page < last_page:
-            page_range.append(last_page)
-
-        return page_range
+        return head_range[:min_range - 1] + range(min_range, max_range + 1) + tail_range[len(tail_range) - (page_count - max_range):]
 
 
 @register.tag
