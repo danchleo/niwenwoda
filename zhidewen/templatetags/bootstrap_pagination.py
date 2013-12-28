@@ -26,7 +26,7 @@ class PaginationNode(template.Node):
         page_range = self.get_page_range(page.number, last_page)
         page_range = [('#' if n == MORE_PAGE_SYMBOL else '?page=%s' % n, n) for n in page_range]
         context = template.Context({'page': page, 'page_range': page_range}, autoescape=False)
-        return get_template('_pagination.html').render(context)
+        return get_template('includes/pagination.html').render(context)
 
     @staticmethod
     def get_page_range(current_page, page_count, range_length=5, end_length=1):
