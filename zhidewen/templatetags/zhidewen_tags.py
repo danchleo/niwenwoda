@@ -85,3 +85,14 @@ def bootstrap_paginate(parser, token):
     except ValueError:
         raise template.TemplateSyntaxError("%r tag requires exactly two arguments" % token.contents.split()[0])
     return PaginationNode(page)
+
+
+@register.simple_tag
+def active(request, pattern):
+    import re
+    current_page = False
+    if pattern == '/':
+        current_page = pattern == request.path
+    elif re.search(pattern, request.path):
+        current_page = True
+    return current_page and 'active' or ''

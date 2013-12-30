@@ -3,14 +3,19 @@
 
 {% block content-body %}
 
+{% url 'newest_questions' as newest %}
+{% url 'hottest_questions' as hottest %}
+{% url 'unanswered_questions' as unanswered %}
+
+
 <dl class="zdw-tabpanel">
 
     <dt>
     <h1 class="zdw-icon zdw-icon-ask">共有{{ unanswered_count }}未回答</h1>
     <ul class="zdw-tabpanel-tabs">
-        <li><a href="{% url 'newest_questions' %}">最新</a></li>
-        <li><a href="{% url 'hottest_questions' %}">最热</a></li>
-        <li><a href="{% url 'unanswered_questions' %}">未回答</a></li>
+        <li class="{% active request newest %}"><a href="{{ newest }}">最新</a></li>
+        <li class="{% active request hottest %}"><a href="{{ hottest }}">最热</a></li>
+        <li class="{% active request unanswered %}"><a href="{{ unanswered }}">未回答</a></li>
     </ul>
     </dt>
 
