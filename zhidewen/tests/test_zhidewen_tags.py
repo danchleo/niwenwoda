@@ -1,8 +1,7 @@
 #-*- encoding: utf-8 -*-
 
 from django.test import TestCase
-from zhidewen.templatetags.timeago import timeago
-from zhidewen.templatetags.bootstrap_pagination import PaginationNode
+from zhidewen.templatetags.zhidewen_tags import timeago, PaginationNode
 import datetime
 
 
