@@ -19,24 +19,11 @@
         </dt>
         <dd>
             <ul class="zdw-taglist-ul">
-                <li><a href="#">C#</a>
-                    <bdi>(58711)</bdi>
-                </li>
-                <li><a href="#">java</a>
-                    <bdi>(6787)</bdi>
-                </li>
-                <li><a href="#">php</a>
-                    <bdi>(43)</bdi>
-                </li>
-                <li><a href="#">asp</a>
-                    <bdi>(43245667)</bdi>
-                </li>
-                <li><a href="#">asp.net</a>
-                    <bdi>(2543)</bdi>
-                </li>
-                <li><a href="#">photoshop</a>
-                    <bdi>(58711)</bdi>
-                </li>
+                {% for t in questions.related_tags %}
+                    <li><a href="{% url 'tag' t.name %}">{{ t.name }}</a>
+                        <bdi>({{ t.used_count }})</bdi>
+                    </li>
+                {% endfor %}
             </ul>
         </dd>
     </dl>

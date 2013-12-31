@@ -29,6 +29,9 @@ class QuestionQuerySet(base.QuerySet):
     def open(self):
         return self._clone().update({'closed': False})
 
+    def related_tags(self):
+        return Tag.existed.filter(questions__in=self).most_used()
+
 
 class QuestionManager(QuestionQuerySet.as_manager()):
 
