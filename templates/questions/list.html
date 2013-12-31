@@ -11,7 +11,7 @@
 <dl class="zdw-tabpanel">
 
     <dt>
-    <h1 class="zdw-icon zdw-icon-ask">共有{{ unanswered_count }}未回答</h1>
+    <h1 class="zdw-icon zdw-icon-ask">共有{{ questions.count }}个问题</h1>
     <ul class="zdw-tabpanel-tabs">
         <li class="{% active request newest %}"><a href="{{ newest }}">最新</a></li>
         <li class="{% active request hottest %}"><a href="{{ hottest }}">最热</a></li>

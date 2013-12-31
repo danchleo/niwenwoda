@@ -15,9 +15,7 @@ def render_list(request, questions):
     cur_page = page.page(request.GET.get('page', 1))
     context = {
         'page': cur_page,
-        'questions': cur_page.object_list,
-        'answered_count': questions.answered().count(),
-        'unanswered_count': questions.unanswered().count(),
+        'questions': cur_page.object_list
     }
     return render(request, 'questions/list.html', context)
 

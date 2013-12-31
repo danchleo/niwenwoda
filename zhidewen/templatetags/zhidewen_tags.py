@@ -3,6 +3,7 @@
 from django import template
 from django.utils import timezone
 from django.template.loader import get_template
+from zhidewen.models import Question
 import datetime
 
 register = template.Library()
@@ -96,3 +97,13 @@ def active(request, pattern):
     elif re.search(pattern, request.path):
         current_page = True
     return current_page and 'active' or ''
+
+
+@register.simple_tag
+def answered_count():
+    return Question.existed.answered().count()
+
+
+@register.simple_tag
+def unanswered_count():
+    return Question.existed.unanswered().count()

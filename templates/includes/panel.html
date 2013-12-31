@@ -1,3 +1,4 @@
+{% load zhidewen_tags %}
 <div class="span3">
     <!--这里是侧边栏-->
     <dl class="zdw-panel zdw-width100p">
@@ -6,8 +7,8 @@
         </dt>
         <dd>
             <ul class="zdw-icon-ul">
-                <li class="zdw-icon zdw-icon-ok zdw-text-color-438a20">已回答：{{ answered_count }}</li>
-                <li class="zdw-icon zdw-icon-questionbtn zdw-text-color-438a20">未回答：{{ unanswered_count }}</li>
+                <li class="zdw-icon zdw-icon-ok zdw-text-color-438a20">已回答：{% answered_count %}</li>
+                <li class="zdw-icon zdw-icon-questionbtn zdw-text-color-438a20">未回答：{% unanswered_count %}</li>
             </ul>
         </dd>
     </dl>
