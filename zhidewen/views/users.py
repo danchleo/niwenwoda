@@ -95,7 +95,7 @@ def page(request, username):
     eg: /u/catroll
     """
     user = User.objects.get(username=username)
-    return render(request, 'users/show.html', {'user': user})
+    return render(request, 'users/usercenter.html', {})  # 'users/show.html'
 
 
 @login_required
@@ -136,4 +136,4 @@ def most_prestigious(request):
 
 def contents(request, username, template):
     user = User.objects.get(username=username)
-    return render(request, template, {'user': user})
+    return render(request, template, {})

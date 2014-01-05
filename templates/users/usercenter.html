@@ -12,7 +12,7 @@
   </dt>
   <dd>
     <ul class="zdw-asklist-ul">
-      {% include 'includes/questions.html' with questions=user.questions %}
+      {% include 'includes/questions.html' with questions=user.questions.all %}
     </ul>
 
     {% bootstrap_paginate page %}
