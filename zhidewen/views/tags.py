@@ -18,7 +18,11 @@ def wall(request):
     标签墙
     """
     tags = Tag.objects.filter(used_count__gt=0)
-    return render(request, 'tags/index.html', {'tags': tags})
+    context = {
+        'page_title': u'标签榜',
+        'tags': tags
+    }
+    return render(request, 'tags/index.html', context)
 
 
 def page(request, tag_name):
@@ -26,7 +30,11 @@ def page(request, tag_name):
     标签页
     """
     tag = Tag.objects.get(name=tag_name)
-    return render(request, 'tags/show.html', {'tag': tag})
+    context = {
+        'page_title': u'标签',
+        'tag': tag
+    }
+    return render(request, 'tags/show.html', context)
 
 
 def hottest(request):

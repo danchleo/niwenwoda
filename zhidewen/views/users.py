@@ -85,6 +85,10 @@ def wall(request):
     """
     users = User.objects.filter(is_active=True).order_by('-profile__reputation')
     context = {'users': users}
+    context = {
+        'page_title': '用户榜',
+        'users': users
+    }
     return render_to_response('users/index.html', context,
                               context_instance=RequestContext(request))
 
@@ -95,7 +99,11 @@ def page(request, username):
     eg: /u/catroll
     """
     user = User.objects.get(username=username)
-    return render(request, 'users/usercenter.html', {})  # 'users/show.html'
+    context = {
+        'page_title': '用户中心',
+        'the_user': user,
+    }
+    return render(request, 'users/usercenter.html', context)  # 'users/show.html'
 
 
 @login_required

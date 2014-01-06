@@ -49,6 +49,8 @@ def marked(request, marked_type=None):
     """
     if marked_type not in ['question', 'answer']:
         marked_type = None
-    user = request.user
-    template_file = 'users/marked.html' if marked_type is None else 'users/marked_%ss.html' % marked_type
+        template = 'users/marked.html'
+    else:
+        template_file = 'users/marked_%ss.html' % marked_type
+
     return render(request, template_file, {})

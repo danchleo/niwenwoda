@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{% block title %}{% endblock %} - 值得问</title>
+    <title>{{ page_title }} - 值得问</title>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/theme-blue.css">
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.10.2.min.js"></script>
@@ -30,7 +30,9 @@
                     <li class="{% active request home_url %}"><a href="{{ home_url }}"><i class="zdw-icon-home"></i>问答</a></li>
                     <li class="{% active request tags_url %}"><a href="{{ tags_url }}">标签</a></li>
                     <!--li><a href="#">我的收藏</a></li-->
-                    <li class="{% active request 'u\/' %}"><a href="{% url 'user' user.username %}">用户中心</a></li>
+                    {% if user.is_authenticated %}
+                      <li class="{% active request 'u\/' %}"><a href="{% url 'user' user.username %}">用户中心</a></li>
+                    {% endif %}
                 </ul>
                 <div class="zdw-nav-user-info">
                   {% if user.is_authenticated %}

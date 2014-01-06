@@ -12,11 +12,9 @@
   </dt>
   <dd>
     <ul class="zdw-asklist-ul">
-      {% include 'includes/questions.html' with questions=user.questions.all %}
+      {% include 'includes/questions.html' with questions=the_user.questions.all %}
     </ul>
-
     {% bootstrap_paginate page %}
-
   </dd>
 </dl>
 {% endblock %}
@@ -31,16 +29,16 @@
   <dd>
     <div class="media"> <a class="pull-left" href="#"> <img class="media-object" data-src="holder.js/32x32" alt="32x32" style="width: 32px; height: 32px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABN0lEQVR4Xu2YQQ6EIAxFdeXFODZnYu9qJk5C0sGiUiAx8FyKVPr76VPWEMJnmfhaEQAHsAXoARP3wIUmCAWgABSAAlBgYgXAIBgEg2AQDE4MAX6GwCAYBINgEAyCwYkVAIO1GPTe//nHOXfyU3xGG9PM1yNmzuRVDpCJ5ZKUyTwRoEfMqx3eTIBcJbdtW/Z9/w2XCtAqZncB5Atkkkc1NQFileVYFCi1fypcLqa1jzd1QM6+2va4EycKWRLTIkI3AY7FPKmmVmF5LxXvLmapCF0FiItp5QCZXClZulBAq/IVBtN9rvUAa8zSysfnqxxgfemb5iFA7Zfgm6ppWQsOwAEciXEkxpGYpXuOMgcKQAEoAAWgwCgd3ZIHFIACUAAKQAFL9xxlDhSAAlAACkCBUTq6JY/pKfAFwO6XkLwNdToAAAAASUVORK5CYII="> </a>
       <div class="media-body">
-        <h4 class="media-heading"><a href="#">这里是昵称</a></h4>
+        <h4 class="media-heading"><a href="#">{{ the_user.profile.nickname }}</a></h4>
       </div>
     </div>
     <ul class="zdw-icon-ul">
-      <li class="zdw-icon zdw-icon-ok zdw-text-color-438a20">回答问题：585231</li>
-      <li class="zdw-icon zdw-icon-questionbtn zdw-text-color-438a20">提出问题：54744114</li>
+      <li class="zdw-icon zdw-icon-ok zdw-text-color-438a20">回答问题：{{ the_user.answer_count }}</li>
+      <li class="zdw-icon zdw-icon-questionbtn zdw-text-color-438a20">提出问题：{{ the_user.question_count }}</li>
     </ul>
     <br/>
-    <span class="zdw-text-color-438a20">登录帐号：buwawa<br/>
-    电子邮箱：weicong@os-easy.com</span>
+    <span class="zdw-text-color-438a20">登录帐号：{{ the_user.username }}<br/>
+    电子邮箱：{{ the_user.email }}</span><br/>
     [<a href="#">修改用户信息</a>]&nbsp;&nbsp;&nbsp;&nbsp;[<a href="#">修改密码</a>]</dd>
 </dl>
 
