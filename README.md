@@ -4,7 +4,25 @@
 
 项目地址：[https://github.com/danchleo/niwenwoda](https://github.com/danchleo/niwenwoda)
 
-###开发人员
+
+## 依赖 ##
+
+- Python 2.6 or 2.7
+- pip
+- virtualenv (virtualenvwrapper is recommended for use during development)
+
+### 使用的第三方应用 ###
+
+- [django-notification](https://github.com/pinax/django-notification) 消息提醒
+- [jinja](https://github.com/mitsuhiko/jinja2) 基于 Python 的模板引擎
+
+
+## 安装 ##
+
+TODO
+
+
+### 开发人员 ###
 
 按汉字拼音排序
 
@@ -16,20 +34,7 @@
 - 张垚
 - 张益金
 
-## 依赖 ##
 
-- Python 2.6 or 2.7
-- pip
-- virtualenv (virtualenvwrapper is recommended for use during development)
+## 协议 ##
 
-###使用的第三方应用
-
-- [django-notification](https://github.com/pinax/django-notification) 消息提醒
-- [jinja](https://github.com/mitsuhiko/jinja2) 基于 Python 的模板引擎
-
-## 安装 ##
-
-
-协议
--------
 未定
