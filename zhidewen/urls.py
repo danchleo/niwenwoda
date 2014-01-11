@@ -37,6 +37,8 @@ urlpatterns = patterns('zhidewen.views',
     url(r'^u/([^/]*)/marked/$', 'mark.marked', name='marked'),
     url(r'^u/([^/]*)/marked/questions/$', 'mark.marked', name='marked_questions', kwargs={'mark_type': 'question'}),
     url(r'^u/([^/]*)/marked/answers/$', 'mark.marked', name='marked_answers', kwargs={'mark_type': 'answer'}),
+	
+	url(r'^register/$', 'users.register', name='register'),
 )
 
 urlpatterns += patterns('',

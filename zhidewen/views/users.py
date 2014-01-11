@@ -75,7 +75,7 @@ def register(request):
         'title': u'注册',
     }
 
-    return render_to_response('accounts/register.html', content,
+    return render_to_response('users/register.html', content,
                               context_instance=RequestContext(request))
 
 

@@ -230,7 +230,7 @@ a:hover {
 .zdw-tabpanel {
 	margin-bottom:10px;
 }
-.zdw-tabpanel>dt>h1 {
+.zdw-tabpanel>dt>h1{
 	color: #0077cf;
 	font-size: 12px;
 	line-height: 30px;
@@ -253,6 +253,7 @@ a:hover {
 	border: #b6d0f4 solid 1px;
 	border-top: none;
 	padding:10px;
+	width:678px;
 }
 .zdw-tabpanel>dt>ul {
 	font-size: 12px;
@@ -380,4 +381,12 @@ a:hover {
 
 .zdw-form-question>fieldset>legend{
 	font-size:20px;
+}
+
+#loginwin, #registerwin{
+	width:400px;	
+}
+.modal-title{
+	font-size:20px;
+	color:#0077cf;
 }
