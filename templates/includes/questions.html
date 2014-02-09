@@ -13,8 +13,9 @@
             <div class="span10"> <a href="{% url 'question' q.id %}" class="zdw-ask-title">{{ q.title }}</a>
                 <p>{{ q.summary }}</p>
                 <div class="row-fluid">
-
-                    <div class="span9 zdw-ask-tag">[{% for tag in q.tags.all %}<a href="{% url 'tag' tag.name %}">{{ tag.name }}</a>, {% endfor %}]</div>
+                    {% if q.tags.all|length %}
+                        <div class="span9 zdw-ask-tag">[{% for tag in q.tags.all %}<a href="{% url 'tag' tag.name %}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}]</div>
+                    {% endif %}
 
                     <div class="span3">{{ q.created_at|timeago }}
                         <div class="media">
