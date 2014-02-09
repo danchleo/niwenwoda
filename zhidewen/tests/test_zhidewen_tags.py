@@ -50,6 +50,7 @@ class TestBootstrapPagination(TestCase):
         self.assertPagination([1, '...', 3, 4, 5, 6, 7], 5, 7)
         self.assertPagination([1, '...', 3, 4, 5, 6, 7], 7, 7)
 
+        self.assertPagination([1, 2, 3, 4, 5, 6, '...', 9], 4, 9)
         self.assertPagination([1, '...', 3, 4, 5, 6, 7, '...', 9], 5, 9)
 
     def test_pagination_end_length(self):

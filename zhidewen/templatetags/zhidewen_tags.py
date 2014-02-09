@@ -76,7 +76,10 @@ class PaginationNode(template.Node):
         head_range = range(1, 1 + end_length) + [MORE_PAGE_SYMBOL]
         tail_range = [MORE_PAGE_SYMBOL] + range(page_count - end_length + 1, page_count + 1)
 
-        return head_range[:min_range - 1] + range(min_range, max_range + 1) + tail_range[len(tail_range) - (page_count - max_range):]
+        page_range = head_range[:min_range - 1] + range(min_range, max_range + 1)
+        if page_count > max_range:
+            page_range += tail_range[-(page_count - max_range):]
+        return page_range
 
 
 @register.tag
