@@ -12,38 +12,28 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.messages import *
 from zhidewen.models import User
 from zhidewen.forms import RegisterForm, ProfileForm
+from zhidewen.views.base import success, error
 
 
 def login(request):
-    if request.user.is_authenticated():
-        return HttpResponseRedirect(reverse('index'))
     if request.method == 'POST':
-        form = AuthenticationForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            # 验证
-            user = authenticate(username=username, password=password)
-            if user:
-                django_login(request, user)
-                # 如果用戶是在訪問某頁面的時候跳轉過來的，登陸成功之後自動轉向之
-                # 前訪問的頁面。
-                next_url = request.GET.get('next', reverse('index'))
-                return HttpResponseRedirect(next_url)
-            error(request, u'抱歉，不能通过验证！')
+        if request.user.is_authenticated():
+            return error(u'您已经登录了')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user:
+            django_login(request, user)
+            return success()
+        else:
+            return error(u'用户名或密码错误')
     else:
-        form = AuthenticationForm()
-
-    content = {
-        'form': form,
-        'title': u'登录',
-    }
-
-    return render_to_response('users/login.html', content,
-                              context_instance=RequestContext(request))
+        content = {
+            'title': u'登录',
+        }
+        return render(request, 'users/login.html', content)
 
 
 @login_required
@@ -57,26 +47,21 @@ def logout(request):
 
 def register(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect(reverse('index'))
+        return error(u'您已经是会员了')
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
+            password = form.cleaned_data['password1']
             email = form.cleaned_data['email']
             user = User.objects.create_user(username, email, password)
             user.save()
-            return HttpResponseRedirect(reverse('index'))
+            user.profile.nickname = form.cleaned_data['nickname']
+            user.profile.save()
+            return success()
+        return error(dict(form.errors))
     else:
-        form = RegisterForm()
-
-    content = {
-        'form': form,
-        'title': u'注册',
-    }
-
-    return render_to_response('users/register.html', content,
-                              context_instance=RequestContext(request))
+        return render(request, 'users/register.html', {'title': u'注册'})
 
 
 def wall(request):

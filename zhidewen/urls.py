@@ -37,12 +37,12 @@ urlpatterns = patterns('zhidewen.views',
     url(r'^u/([^/]*)/marked/$', 'mark.marked', name='marked'),
     url(r'^u/([^/]*)/marked/questions/$', 'mark.marked', name='marked_questions', kwargs={'mark_type': 'question'}),
     url(r'^u/([^/]*)/marked/answers/$', 'mark.marked', name='marked_answers', kwargs={'mark_type': 'answer'}),
-	
+
+    url(r'^login/$', 'users.login', name='login'),
 	url(r'^register/$', 'users.register', name='register'),
 )
 
 urlpatterns += patterns('',
-    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'users/login.html'}, name='login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout')
 )
 
