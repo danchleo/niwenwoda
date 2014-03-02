@@ -10,10 +10,8 @@ class QuestionForm(forms.Form):
     content = forms.CharField(label=u'内容', widget=forms.Textarea, required=False)
     tag_names = forms.CharField(label=u'标签', max_length=300, required=False)
 
-    def clean(self):
-        cleaned_data = self.cleaned_data
-        cleaned_data['tag_names'] = cleaned_data['tag_names'].split(' ')
-        return cleaned_data
+    def clean_tag_names(self):
+        return self.cleaned_data['tag_names'].split(' ')
 
 
 class AnswerCreationForm(forms.Form):
