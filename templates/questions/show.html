@@ -12,7 +12,7 @@
 
 <hr>
 
-{{ question.content }}
+{{ question.content|safe }}
 
 <hr>
 
@@ -27,7 +27,7 @@
     <a href="{% url 'vote_answer' a.id %}?value=1">支持 {{ a.up_count }}</a>
     <a href="{% url 'vote_answer' a.id %}?value=-1">反对 {{ a.down_count }}</a>
 
-    <p>{{ a.content }} </p>
+    <p>{{ a.content|safe }} </p>
 
     <a href="{% url 'edit_answer' a.id %}">编辑</a>
     <a href="{% url 'delete_answer' a.id %}">删除</a>

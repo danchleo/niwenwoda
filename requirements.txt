@@ -1,3 +1,7 @@
 Django==1.6
 Jinja2==2.7.1
 django-notification==1.1.1
+django-wysiwyg==0.5.1
+html5lib==0.999
+# apt-get install libxml2-dev libxslt-dev
+lxml==3.3.2

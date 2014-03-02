@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
+import django_wysiwyg
+
 
 
 class QuestionForm(forms.Form):
@@ -13,6 +15,19 @@ class QuestionForm(forms.Form):
     def clean_tag_names(self):
         return self.cleaned_data['tag_names'].split(' ')
 
+    def clean_content(self):
+        return django_wysiwyg.sanitize_html(self.cleaned_data['content'])
+
+    def clean(self):
+        from lxml.html import html5parser
+        cleaned_data = super(QuestionForm, self).clean()
+        doc = html5parser.fromstring(cleaned_data['content'])
+        cleaned_data['summary'] = doc.xpath("string()")[:500]
+        return cleaned_data
+
 
 class AnswerCreationForm(forms.Form):
     content = forms.CharField(label=u'回答', widget=forms.Textarea, required=True)
+
+    def clean_content(self):
+        return django_wysiwyg.sanitize_html(self.cleaned_data['content'])
