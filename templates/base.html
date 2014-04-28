@@ -1,105 +1,176 @@
 {% load zhidewen_tags %}
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>{{ page_title }} - 值得问</title>
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.min.css"/>
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/theme-blue.css">
-<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/app.js"></script>
-{% block head %}{% endblock %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{{ page_title }} - 值得问</title>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/theme-blue.css">
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/app.js"></script>
+    {% block head %}{% endblock %}
 </head>
+
 <body>
-{% block header %}
-
-{% url 'home' as home_url %}
-{% url 'tags' as tags_url %}
-<div id="header" class="zdw-margin-bottom-10px">
-  <div class="container">
-    <div class="logo">放logo</div>
-    <div class="tianqi">放天气</div>
-  </div>
-  <!--使用bootstrap的导航条-->
-  <div class="navbar navbar-static-top">
-    <div class="navbar-inner zdw-nav-bg">
-      <div class="container">
-        <ul class="nav zdw-nav">
-          <li class="{% active request home_url %}"><a href="{{ home_url }}"><i class="zdw-icon-home"></i>问答</a></li>
-          <li class="{% active request tags_url %}"><a href="{{ tags_url }}">标签</a></li>
-          <!--li><a href="#">我的收藏</a></li--> 
-          {% if user.is_authenticated %}
-          <li class="{% active request 'u\/' %}"><a href="{% url 'user' user.username %}">用户中心</a></li>
-          {% endif %}
-        </ul>
-        <div class="zdw-nav-user-info"> {% if user.is_authenticated %} <a href="{% url 'user' user.username %}">{{ user }}</a> &nbsp;
-          [<a href="{% url 'logout' %}">退出</a>]
-          {% else %}
-          欢迎来到值得问&nbsp;&nbsp;[<a href="{% url 'login' %}" action="openWin" command="login" data-toggle="modal" data-target="#loginwin">请登录</a>]&nbsp;&nbsp;[<a href="{% url 'register' %}" action="openWin" command="register" data-toggle="modal" data-target="#registerwin">免费注册</a>]
-          {% endif %} </div>
+    {% block header %} {% url 'home' as home_url %} {% url 'tags' as tags_url %}
+    <div id="header" class="zdw-margin-bottom-10px">
+        <div class="container">
+            <div class="logo">放logo</div>
+            <div class="tianqi">放天气</div>
+        </div>
+        <!--使用bootstrap的导航条-->
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner zdw-nav-bg">
+                <div class="container">
+                    <ul class="nav zdw-nav">
+                        <li class="{% active request home_url %}"><a href="{{ home_url }}"><i class="zdw-icon-home"></i>问答</a>
+                        </li>
+                        <li class="{% active request tags_url %}"><a href="{{ tags_url }}">标签</a>
+                        </li>
+                        <!--li><a href="#">我的收藏</a></li-->
+                        {% if user.is_authenticated %}
+                        <li class="{% active request 'u\/' %}"><a href="{% url 'user' user.username %}">用户中心</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    <div class="zdw-nav-user-info">{% if user.is_authenticated %} <a href="{% url 'user' user.username %}">{{ user }}</a> &nbsp; [
+                        <a href="/logout/">退出</a>] {% else %} 欢迎来到值得问&nbsp;&nbsp;[
+                        <a href="javascript:void(0);" data-toggle="modal" data-target="#loginwin">请登录</a>]&nbsp;&nbsp;[<a href="javascript:void(0);" data-toggle="modal" data-target="#registerwin">免费注册</a>] {% endif %}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %} {% block search %}
+    <!--搜索-->
+    <div id="search" class="zdw-margin-bottom-10px">
+        <div class="container zdw-search-bg">
+            <div class="search input">
+                <input name="q" type="text" class="zdw-search-input" />
+            </div>
+            <div class="zdw-search-searchbtn">
+                <img src="{{ STATIC_URL }}image/search_btn.gif" width="94" height="32" alt="搜索" />
+            </div>
+            <div class="zdw-search-questionbtn">
+                <a href="{% url 'ask' %}">
+                    <img src="{{ STATIC_URL }}image/question_btn.gif" width="133" height="38" alt="要我提问" />
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endblock %} {% block container %}
+    <div class="container zdw-margin-bottom-10px">
+        <div class="container-fluid zdw-padding-0px">
+            <div class="row-fluid">
+                <div class="span9">{% block content-body %} {% endblock %}</div>
+                {% block panel %} {% endblock %}</div>
+        </div>
+    </div>
+    {% endblock %} {% block footer %}
+    <div id="footer">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="#">关于我们</a> 
+                    <span class="divider">|</span>
+                </li>
+                <li>版权所有：值得问
+                    <span class="divider">|</span>
+                </li>
+                <li class="active">版本：v 1.0</li>
+            </ul>
+        </div>
+    </div>
+    {% endblock %} {% block js %}{% endblock %}
+    <div id="loginwin" data-backdrop="static" class="modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="modal-title">用户登录</h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" action="/login/" method="POST">
+                <!-- username input -->
+                <div class="control-group">
+                    <label class="control-label" for="login-username">用户名：</label>
+                    <div class="controls">
+                        <input id="login-username" data-format="[a-zA-Z0-9]{6,20}" type="text" name="username" />
+                        <span class="help-block hide">用户名长度为6 - 20个字符，不可为空</span>
+                    </div>
+                </div>
+                <!-- password input -->
+                <div class="control-group">
+                    <label class="control-label" for="login-password">密码：</label>
+                    <div class="controls">
+                        <input id="login-password" data-format="[a-zA-Z0-9]{6,20}" type="password" name="password" />
+                        <span class="help-block hide">密码长度为6 - 20个字符，不可为空</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <label class="checkbox">记住我
+                            <input type="checkbox" id="login-remember" />
+                        </label>
+                        
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button id="login-submit" type="submit" class="btn btn-primary">登录</button>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
-{% endblock %}
-
-{% block search %} 
-<!--搜索-->
-<div id="search" class="zdw-margin-bottom-10px">
-  <div class="container zdw-search-bg">
-    <div class="search input">
-      <input name="q" type="text" class="zdw-search-input"/>
-    </div>
-    <div class="zdw-search-searchbtn"><img src="{{ STATIC_URL }}image/search_btn.gif" width="94" height="32" alt="搜索" /></div>
-    <div class="zdw-search-questionbtn"><a href="{% url 'ask' %}"><img src="{{ STATIC_URL }}image/question_btn.gif" width="133" height="38" alt="要我提问" /></a></div>
-  </div>
-</div>
-{% endblock %}
-
-{% block container %}
-<div class="container zdw-margin-bottom-10px">
-  <div class="container-fluid zdw-padding-0px">
-    <div class="row-fluid">
-      <div class="span9"> {% block content-body %}
-        {% endblock %} </div>
-      {% block panel %}
-      {% endblock %} </div>
-  </div>
-</div>
-{% endblock %}
-
-{% block footer %}
-<div id="footer">
-  <div class="container">
-    <ul class="breadcrumb">
-      <li><a href="#">关于我们</a> <span class="divider">|</span></li>
-      <li>版权所有：值得问 <span class="divider">|</span></li>
-      <li class="active">版本：v 1.0</li>
-    </ul>
-  </div>
-</div>
-{% endblock %}
-
-{% block js %}{% endblock %}
-<div id="loginwin" class="modal hide fade">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3 class="modal-title">用户登录</h3>
-  </div>
-  <div class="modal-body">
-    
-  </div>
-</div>
-<div id="registerwin" class="modal hide fade">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3 class="modal-title">新用户注册</h3>
-  </div>
-  <div class="modal-body">
-    
-  </div>
-  <!--div class="modal-footer"></div-->
-</div>
+        <div id="registerwin" data-backdrop="static" class="modal hide fade">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">新用户注册</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="/register/" method="POST">
+                <!-- username input -->
+                <div class="control-group">
+                    <label class="control-label" data-format="[a-zA-Z0-9]{6,20}" for="reg-username">用户名：</label>
+                    <div class="controls">
+                        <input id="reg-username" type="text" name="username" />
+                        <span class="help-block hide">用户名长度为6 - 20个字符，不可为空</span>
+                    </div>
+                </div>
+                <!-- password input -->
+                <div class="control-group">
+                    <label class="control-label" data-format="[a-zA-Z0-9]{6,20}" for="reg-password1">密码：</label>
+                    <div class="controls">
+                        <input id="reg-password1" type="password" name="password1" />
+                        <span class="help-block hide">密码长度为6 - 20个字符，不可为空</span>
+                    </div>
+                </div>
+                <!-- confirm password input -->
+                <div class="control-group">
+                    <label class="control-label" data-format="[a-zA-Z0-9]{6,20}" for="reg-password2">确认密码：</label>
+                    <div class="controls">
+                        <input id="reg-password2" type="password" name="password2" />
+                        <span class="help-block hide">确认密码长度为6 - 20个字符，不可为空</span>
+                    </div>
+                </div>
+                <!-- nick name input -->
+                <div class="control-group">
+                    <label class="control-label" for="reg-nickname">昵称：</label>
+                    <div class="controls">
+                        <input id="reg-nickname" type="text" name="nickname" />
+                    </div>
+                </div>
+                <!-- email input -->
+                <div class="control-group">
+                    <label class="control-label" for="reg-email">电子邮箱：</label>
+                    <div class="controls">
+                        <input id="reg-email" type="text" name="email" />
+                        <span class="help-block hide">电子邮箱不可为空</span>
+                    </div>
+                </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="reg-submit">提交</button>
+            </div>
+        </div>
 </body>
+
 </html>
