@@ -82,6 +82,11 @@
         </div>
     </div>
     {% endblock %} {% block js %}{% endblock %}
+    <!-- style for modal window -->
+    <style type="text/css">
+        #loginwin .control-label, #registerwin .control-label {width: 90px;}
+        #loginwin .controls, #registerwin .controls {margin-left: 130px;}
+    </style>
     <div id="loginwin" data-backdrop="static" class="modal hide fade">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -93,16 +98,16 @@
                 <div class="control-group">
                     <label class="control-label" for="login-username">用户名：</label>
                     <div class="controls">
-                        <input id="login-username" data-format="[a-zA-Z0-9]{6,20}" type="text" name="username" />
-                        <span class="help-block hide">用户名长度为6 - 20个字符，不可为空</span>
+                        <input id="login-username" data-format="^[a-zA-Z0-9]{4,20}$" type="text" name="username" />
+                        <span class="help-block hide">用户名长度为4 - 20个字符，不可为空</span>
                     </div>
                 </div>
                 <!-- password input -->
                 <div class="control-group">
                     <label class="control-label" for="login-password">密码：</label>
                     <div class="controls">
-                        <input id="login-password" data-format="[a-zA-Z0-9]{6,20}" type="password" name="password" />
-                        <span class="help-block hide">密码长度为6 - 20个字符，不可为空</span>
+                        <input id="login-password" data-format="^[a-zA-Z0-9]{4,20}$" type="password" name="password" />
+                        <span class="help-block hide">密码长度为4 - 20个字符，不可为空</span>
                     </div>
                 </div>
                 <div class="control-group">
@@ -128,26 +133,26 @@
                 <form class="form-horizontal" action="/register/" method="POST">
                 <!-- username input -->
                 <div class="control-group">
-                    <label class="control-label" data-format="[a-zA-Z0-9]{6,20}" for="reg-username">用户名：</label>
+                    <label class="control-label" for="reg-username">用户名：</label>
                     <div class="controls">
-                        <input id="reg-username" type="text" name="username" />
-                        <span class="help-block hide">用户名长度为6 - 20个字符，不可为空</span>
+                        <input id="reg-username" data-format="^[a-zA-Z0-9]{4,20}$" type="text" name="username" />
+                        <span class="help-block hide">用户名长度为4 - 20个字符，不可为空</span>
                     </div>
                 </div>
                 <!-- password input -->
                 <div class="control-group">
-                    <label class="control-label" data-format="[a-zA-Z0-9]{6,20}" for="reg-password1">密码：</label>
+                    <label class="control-label" for="reg-password1">密码：</label>
                     <div class="controls">
-                        <input id="reg-password1" type="password" name="password1" />
-                        <span class="help-block hide">密码长度为6 - 20个字符，不可为空</span>
+                        <input id="reg-password1" data-format="^[a-zA-Z0-9]{4,20}$" type="password" name="password1" />
+                        <span class="help-block hide">密码长度为4 - 20个字符，不可为空</span>
                     </div>
                 </div>
                 <!-- confirm password input -->
                 <div class="control-group">
-                    <label class="control-label" data-format="[a-zA-Z0-9]{6,20}" for="reg-password2">确认密码：</label>
+                    <label class="control-label" for="reg-password2">确认密码：</label>
                     <div class="controls">
-                        <input id="reg-password2" type="password" name="password2" />
-                        <span class="help-block hide">确认密码长度为6 - 20个字符，不可为空</span>
+                        <input id="reg-password2" data-format="^[a-zA-Z0-9]{4,20}$" type="password" name="password2" />
+                        <span class="help-block hide">确认密码长度为4 - 20个字符，不可为空，必须与密码一致</span>
                     </div>
                 </div>
                 <!-- nick name input -->
