@@ -14,7 +14,7 @@
 
 
 {% block content-body %}
-<form class="zdw-form-question" action="{% url 'ask'  %}" method="POST">
+<form id="ask-question-form" class="zdw-form-question" action="{% url 'ask'  %}" method="POST">
     {% csrf_token %}
     <fieldset>
         <legend>我要提问</legend>
@@ -39,8 +39,12 @@
 
 {% block js %}
     <script type="text/javascript">
-        var ue = UE.getEditor('editor');
-
+        var ue = UE.getEditor('editor', {
+            textarea: 'content'
+        });
+        $('#ask-question-form').submit(function(){
+            ue.sync(this.id);
+        });
         /*
          {
          toolbars : [["source", "unlink","link","insertimage", "insertcode","bold","italic","underline",  "justifyleft","justifycenter","justifyright"]],
