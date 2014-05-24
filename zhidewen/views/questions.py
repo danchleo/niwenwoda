@@ -40,7 +40,14 @@ def ask(request):
         if form.is_valid():
             question = Question.objects.create(request.user, **form.cleaned_data)
             return redirect(reverse('question', args=(question.id, )))
-    return render(request, 'questions/ask.html', {'form': form})
+    context = {
+        'form': form,
+        'question': Question(),
+        'question_url': reverse('ask'),
+        'new_question': True,
+    }
+
+    return render(request, 'questions/ask.html', context)
 
 
 def show(request, question_id):
@@ -66,7 +73,13 @@ def update(request, question_id):
     initial = model_to_dict(question)
     initial['tag_names'] = ' '.join(tag_names)
     form = QuestionForm(initial)
-    return render(request, 'questions/edit.html', {'form': form, 'question': question})
+    context = {
+        'form': form,
+        'question': question,
+        'question_url': reverse('edit_question', args=(question_id, )),
+        'new_question': False,
+    }
+    return render(request, 'questions/ask.html', context)
 
 
 @login_required

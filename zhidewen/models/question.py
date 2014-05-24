@@ -52,7 +52,7 @@ class Question(base.ContentModel):
 
     title = models.CharField(max_length=140, verbose_name=u'标题')
     summary = models.TextField(null=True, blank=True, verbose_name=u'问题摘要')
-    content = models.TextField(null=True, blank=True, verbose_name=u'补充说明')
+    content = models.TextField(blank=True, verbose_name=u'补充说明')
     tags = models.ManyToManyField(Tag, related_name='questions', verbose_name=u'标签')
 
     view_count = models.PositiveIntegerField(default=0, verbose_name=u'浏览数')
@@ -72,6 +72,16 @@ class Question(base.ContentModel):
     @property
     def author(self):
         return self.created_by
+
+    @property
+    def tag_names(self):
+        if not self.pk:
+            return ''
+        return ' '.join(self.tags.values_list('name', flat=True))
+
+    @tag_names.setter
+    def tag_names(self, names):
+        self.tags = [Tag.objects.get_or_create(name=name, created_by=self.created_by)[0] for name in names]
 
     def count_ranking(self):
         return sum([self.answer_count*5,
