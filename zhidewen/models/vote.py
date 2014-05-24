@@ -15,25 +15,11 @@ class VoteManager(models.Manager):
         @param obj: 被投票对象
         @param value: 0 为取消投票
         """
-
-        if value not in Vote.valid_values:
-            return False
-
         content_type = ContentType.objects.get_for_model(obj)
         try:
-            vote = self.get(content_type=content_type, voted_by=user)
-            if vote.value == value:
-                return vote
+            vote = self.get(content_type=content_type, object_pk=obj.pk, voted_by=user)
         except self.model.DoesNotExist:
-            vote = self.model(content_type=content_type, voted_by=user, value=0)
-
-        #model = obj.__class__
-        #content_type = ContentType.objects.get_for_model(model)
-
-        #try:
-        #    vote = self.get(content_type=content_type, object_pk=obj.id, voted_by=user)
-        #except self.model.DoesNotExist:
-        #    vote = self.model(content_object=obj, voted_by=user, value=0)
+            vote = self.model(content_type=content_type, object_pk=obj.pk, voted_by=user, value=0)
 
         old_value, vote.value = vote.value, value
         vote.save()
@@ -43,8 +29,6 @@ class VoteManager(models.Manager):
 
     @staticmethod
     def _update_vote_count(obj, before, after):
-        if before not in Vote.valid_values or after not in Vote.valid_values or before == after:
-            return
         if before == 1:
             obj.up_count -= 1
         elif before == -1:
@@ -72,10 +56,3 @@ class Vote(models.Model):
         app_label = 'zhidewen'
         db_table = 'zhidewen_votes'
         unique_together = (('content_type', 'object_pk', 'voted_by'), )
-
-
-def vote(self, obj, value):
-    pass
-
-from zhidewen.models import User
-User.vote = vote
