@@ -19,12 +19,13 @@ class VoteManager(models.Manager):
         if value not in Vote.valid_values:
             return False
 
+        content_type = ContentType.objects.get_for_model(obj)
         try:
-            vote = self.get(content_object=obj, voted_by=user)
+            vote = self.get(content_type=content_type, voted_by=user)
             if vote.value == value:
                 return vote
         except self.model.DoesNotExist:
-            vote = self.model(content_object=obj, voted_by=user, value=0)
+            vote = self.model(content_type=content_type, voted_by=user, value=0)
 
         #model = obj.__class__
         #content_type = ContentType.objects.get_for_model(model)
@@ -34,8 +35,7 @@ class VoteManager(models.Manager):
         #except self.model.DoesNotExist:
         #    vote = self.model(content_object=obj, voted_by=user, value=0)
 
-        old_value = vote.value
-        vote.value = value
+        old_value, vote.value = vote.value, value
         vote.save()
         self._update_vote_count(obj, old_value, value)
 
@@ -45,16 +45,13 @@ class VoteManager(models.Manager):
     def _update_vote_count(obj, before, after):
         if before not in Vote.valid_values or after not in Vote.valid_values or before == after:
             return
-        if after == 0:
-            if before == 1:
-                obj.up_count -= 1
-            elif before == -1:
-                obj.down_count -= 1
-        elif after == 1:
-            obj.up_count += 1
-            obj.down_count -= 1
-        elif after == -1:
+        if before == 1:
             obj.up_count -= 1
+        elif before == -1:
+            obj.down_count -= 1
+        if after == 1:
+            obj.up_count += 1
+        elif after == -1:
             obj.down_count += 1
         return obj.save()
 

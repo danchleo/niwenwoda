@@ -55,11 +55,11 @@ class TestListQuestion(ModelTestCase):
         self.q2.last_refreshed_at = timezone.now()
         self.q2.save()
 
-    def test_fresh_list(self):
-        self.assertEqual(list(Question.objects.fresh()), [self.q2, self.q3, self.q1])
+    def test_newest_list(self):
+        self.assertEqual(list(Question.objects.newest()), [self.q2, self.q3, self.q1])
 
-    def test_hot_list(self):
-        self.assertEqual(list(Question.objects.hot()), [self.q2, self.q1, self.q3])
+    def test_hottest_list(self):
+        self.assertEqual(list(Question.objects.hottest()), [self.q2, self.q1, self.q3])
 
     def test_unanswered_list(self):
         self.assertEqual(list(Question.objects.unanswered().recent()), [self.q3, self.q2])
@@ -72,10 +72,10 @@ class TestListQuestion(ModelTestCase):
         self.assertEqual(1, Question.objects.answered().count())
 
     def test_existed_manager_and_soft_delete(self):
-        self.assertEqual(list(Question.objects.fresh()), [self.q2, self.q3, self.q1])
+        self.assertEqual(list(Question.objects.newest()), [self.q2, self.q3, self.q1])
         self.q2.soft_delete()
-        self.assertEqual(list(Question.existed.fresh()), [self.q3, self.q1])
-        self.assertEqual(list(Question.objects.fresh()), [self.q2, self.q3, self.q1])
+        self.assertEqual(list(Question.existed.newest()), [self.q3, self.q1])
+        self.assertEqual(list(Question.objects.newest()), [self.q2, self.q3, self.q1])
 
 
 class TestQuestionTag(ModelTestCase):
