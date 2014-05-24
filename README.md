@@ -1,40 +1,23 @@
-# 值得问 ZhiDeWen #
-
-## 简介 ##
-
-项目地址：[https://github.com/danchleo/niwenwoda](https://github.com/danchleo/niwenwoda)
+# 值得问
 
 
-## 依赖 ##
+## 环境
 
-- Python 2.6 or 2.7
-- pip
-- virtualenv (virtualenvwrapper is recommended for use during development)
-
-### 使用的第三方应用 ###
-
-- [django-notification](https://github.com/pinax/django-notification) 消息提醒
-- [jinja](https://github.com/mitsuhiko/jinja2) 基于 Python 的模板引擎
+* Python 2.7
+* pip
+* virtualenv
 
 
-## 安装 ##
+## 安装
 
-TODO
+    git clone https://github.com/danchleo/niwenwoda.git
+    cd niwenwoda
 
+    virtualenv .env
+    source .env/bin/activate
+    pip install -r requirements.txt
 
-### 开发人员 ###
+    python manage.py syncdb
+    python manage.py runserver
 
-按汉字拼音排序
-
-- 段成虎
-- 郭咏梅
-- 胡昂
-- 刘俊雄
-- 魏聪
-- 张垚
-- 张益金
-
-
-## 协议 ##
-
-未定
+访问 `127.0.0.1:8000`，默认用户名 `test`， 密码 `test`
